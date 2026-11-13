@@ -2,6 +2,7 @@ import type { Locator, Page } from "@playwright/test";
 
 import type { ContactData } from "../../data/contact-data";
 import { BasePage } from "./base.page";
+import { step } from "../../utils/step";
 
 export class ContactPage extends BasePage {
   static readonly path = "/contact_us";
@@ -23,6 +24,7 @@ export class ContactPage extends BasePage {
     this.submitButton = page.getByRole("button", { name: "Submit", exact: true });
   }
 
+  @step
   async goto(): Promise<void> {
     await this.page.goto(ContactPage.path);
   }

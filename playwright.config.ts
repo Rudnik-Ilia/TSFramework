@@ -1,8 +1,11 @@
 import { defineConfig, devices } from "@playwright/test";
 import { reportId } from "./src/utils/randomUtil";
 
+const ID: string = reportId();
+
 export default defineConfig({
   testDir: "./tests",
+  outputDir: `reports/${ID}/test-results`,
 
   timeout: 30_000,
 
@@ -14,7 +17,7 @@ export default defineConfig({
     [
       "html",
       {
-        outputFolder: `reports/html/${reportId()}`,
+        outputFolder: `reports/${ID}/html`,
         open: "never",
       },
     ],
