@@ -9,5 +9,7 @@ test("navigates from Home to Contact Us through the top menu", async ({ page }) 
   await homePage.goto();
   await homePage.topMenu.openContactUs();
 
-  await expect(page).toHaveURL(ContactPage.path);
+  const contactPage = new ContactPage(page);
+
+  await expect(contactPage.page).toHaveURL(ContactPage.path);
 });
