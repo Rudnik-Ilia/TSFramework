@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import { reportId } from "./src/utils/randomUtil";
 
 export default defineConfig({
   testDir: "./tests",
@@ -8,6 +9,16 @@ export default defineConfig({
   expect: {
     timeout: 5_000,
   },
+  reporter: [
+    ["list"],
+    [
+      "html",
+      {
+        outputFolder: `reports/html/${reportId()}`,
+        open: "never",
+      },
+    ],
+  ],
 
   use: {
     baseURL: "https://automationexercise.com",

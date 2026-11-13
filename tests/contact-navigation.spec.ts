@@ -7,3 +7,8 @@ test("navigates from Home to Contact Us through the top menu", async ({ homePage
 
   await expect(contactPage.page).toHaveURL(ContactPage.path);
 });
+
+test("navigates to Contact Us", async ({ contactPage }) => {
+  await contactPage.goto();
+  await expect(contactPage.page).toHaveURL(ContactPage.path);
+});
