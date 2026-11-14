@@ -7,15 +7,17 @@ import { step } from "../../utils/step";
 export class ContactPage extends BasePage {
   static readonly path = "/contact_us";
 
-  private readonly nameInput: Locator;
-  private readonly emailInput: Locator;
-  private readonly subjectInput: Locator;
-  private readonly messageInput: Locator;
-  private readonly fileInput: Locator;
-  private readonly submitButton: Locator;
+  readonly getInTouchHeading: Locator;
+  readonly nameInput: Locator;
+  readonly emailInput: Locator;
+  readonly subjectInput: Locator;
+  readonly messageInput: Locator;
+  readonly fileInput: Locator;
+  readonly submitButton: Locator;
 
   constructor(page: Page) {
     super(page);
+    this.getInTouchHeading = page.getByRole("heading", { name: "Get In Touch" });
     this.nameInput = page.getByPlaceholder("Name", { exact: true });
     this.emailInput = page.getByPlaceholder("Email", { exact: true });
     this.subjectInput = page.getByPlaceholder("Subject", { exact: true });
