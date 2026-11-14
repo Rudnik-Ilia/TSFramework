@@ -2,7 +2,7 @@ name: Nightly Playwright E2E
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "0 20 14 11 *"
       timezone: "Asia/Jerusalem"
   workflow_dispatch:
 
