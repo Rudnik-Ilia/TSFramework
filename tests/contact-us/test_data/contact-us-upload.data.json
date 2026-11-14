@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Daniel Green",
+    "email": "daniel.green+attachment@example.net",
+    "subject": "Contact form with text attachment",
+    "message": "Please review the attached text file submitted with this contact request.",
+    "attachmentPath": "contact-request-daniel.txt"
+  },
+  {
+    "name": "Sophia Brown",
+    "email": "sophia.brown+attachment@example.org",
+    "subject": "Contact form with CSV attachment",
+    "message": "Please review the attached CSV file submitted with this contact request.",
+    "attachmentPath": "contact-request-sophia.csv"
+  },
+  {
+    "name": "Michael Stone",
+    "email": "michael.stone+attachment@example.com",
+    "subject": "Contact form with JSON attachment",
+    "message": "Please review the attached JSON file submitted with this contact request.",
+    "attachmentPath": "contact-request-michael.json"
+  }
+]

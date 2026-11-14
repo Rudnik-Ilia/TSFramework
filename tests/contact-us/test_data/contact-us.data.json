@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Alex Morgan",
+    "email": "alex.morgan+contact@example.com",
+    "subject": "Product availability question",
+    "message": "Please send additional information about current product availability."
+  },
+  {
+    "name": "Maya Cohen",
+    "email": "maya.cohen+feedback@example.org",
+    "subject": "Website feedback",
+    "message": "The website is easy to use, and I would like to share additional feedback."
+  }
+]
