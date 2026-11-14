@@ -1,41 +1,14 @@
+import { readFileSync } from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
 import { reportId } from "./src/utils/randomUtil";
 
-const ID: string = reportId();
+const settingsFile = process.env.PW_SETTINGS ?? "playwright.settings.json";
 
-export default defineConfig({
-  testDir: "./tests",
-  outputDir: `reports/${ID}/test-results`,
-  // fullyParallel: true,
-  // workers: 4,
+const config = JSON.parse(readFileSync(settingsFile, "utf8").replaceAll("{reportId}", reportId()));
 
-  timeout: 30_000,
+config.projects = config.projects.map((project: { name: string; device: keyof typeof devices }) => ({
+  name: project.name,
+  use: devices[project.device],
+}));
 
-  expect: {
-    timeout: 5_000,
-  },
-  reporter: [
-    ["list"],
-    [
-      "html",
-      {
-        outputFolder: `reports/${ID}/html`,
-        open: "never",
-      },
-    ],
-  ],
-
-  use: {
-    baseURL: "https://automationexercise.com",
-    headless: false,
-    trace: "retain-on-failure",
-    screenshot: "only-on-failure",
-  },
-
-  projects: [
-    {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
-    },
-  ],
-});
+export default defineConfig(config);

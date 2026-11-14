@@ -1,0 +1,32 @@
+{
+  "testDir": "./tests",
+  "outputDir": "reports/{reportId}/test-results",
+  "fullyParallel": true,
+  "workers": 4,
+  "timeout": 30000,
+  "expect": {
+    "timeout": 5000
+  },
+  "reporter": [
+    ["list"],
+    [
+      "html",
+      {
+        "outputFolder": "reports/{reportId}/html",
+        "open": "never"
+      }
+    ]
+  ],
+  "use": {
+    "baseURL": "https://automationexercise.com",
+    "headless": false,
+    "trace": "retain-on-failure",
+    "screenshot": "only-on-failure"
+  },
+  "projects": [
+    {
+      "name": "chromium",
+      "device": "Desktop Chrome"
+    }
+  ]
+}
