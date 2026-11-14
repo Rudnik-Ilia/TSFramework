@@ -39,7 +39,7 @@ test.describe("Contact Us page", () => {
   });
 
   for (const [dataSetIndex, contactData] of validContactData.entries()) {
-    test(`fills all text fields with valid data set ${dataSetIndex + 1}`, async ({ contactPage }) => {
+    test(`submits valid data set ${dataSetIndex + 1}`, async ({ contactPage }) => {
       await contactPage.goto();
       await contactPage.fillForm(contactData);
 
@@ -47,6 +47,10 @@ test.describe("Contact Us page", () => {
       await expect(contactPage.emailInput).toHaveValue(contactData.email);
       await expect(contactPage.subjectInput).toHaveValue(contactData.subject);
       await expect(contactPage.messageInput).toHaveValue(contactData.message);
+
+      await contactPage.submit();
+
+      await expect(contactPage.successMessage).toBeVisible();
     });
   }
 });

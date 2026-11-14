@@ -14,6 +14,7 @@ export class ContactPage extends BasePage {
   readonly messageInput: Locator;
   readonly fileInput: Locator;
   readonly submitButton: Locator;
+  readonly successMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -24,6 +25,7 @@ export class ContactPage extends BasePage {
     this.messageInput = page.getByPlaceholder("Your Message Here", { exact: true });
     this.fileInput = page.getByRole("button", { name: "Choose File" });
     this.submitButton = page.getByRole("button", { name: "Submit", exact: true });
+    this.successMessage = page.locator("#contact-page").getByText("Success! Your details have been submitted successfully.", { exact: true });
   }
 
   @step
@@ -63,6 +65,11 @@ export class ContactPage extends BasePage {
   }
 
   async submit(): Promise<void> {
-    await this.submitButton.click();
+    await Promise.all([this.acceptConfirmationDialog(), this.submitButton.click()]);
+  }
+
+  private async acceptConfirmationDialog(): Promise<void> {
+    const confirmationDialog = await this.page.waitForEvent("dialog");
+    await confirmationDialog.accept();
   }
 }
