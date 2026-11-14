@@ -71,3 +71,25 @@ npm run qa:report
 ```
 
 The CLI propagates the Playwright exit code. Invalid arguments return a non-zero exit code.
+
+### CLI architecture
+
+```text
+executor.ts
+   ↓
+program.ts
+   ├── validation.ts
+   ├── playwright-arguments.ts
+   ├── report-resolver.ts
+   └── process-runner.ts → Playwright
+        ↑
+      types.ts
+```
+
+- `executor.ts` — CLI entry point and final exit code.
+- `program.ts` — defines Commander commands, options, and help.
+- `validation.ts` — validates workers, regexes, files, and line numbers.
+- `playwright-arguments.ts` — converts CLI options into Playwright arguments and combines filters/tags.
+- `process-runner.ts` — starts Playwright with Node.js `spawn()` and returns its exit code.
+- `report-resolver.ts` — locates a requested report or the latest `reports/*/html` report.
+- `types.ts` — shared strict TypeScript types for commands and options.
