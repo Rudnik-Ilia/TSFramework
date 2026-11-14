@@ -1,4 +1,5 @@
 import type { Locator, Page } from "@playwright/test";
+import { step } from "../../utils/step";
 
 export class TopMenuComponent {
   private readonly homeLink: Locator;
@@ -12,7 +13,7 @@ export class TopMenuComponent {
   async openHome(): Promise<void> {
     await this.homeLink.click();
   }
-
+  @step
   async openContactUs(): Promise<void> {
     await this.contactUsLink.click();
   }
