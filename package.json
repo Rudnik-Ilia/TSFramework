@@ -4,13 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsx executor.ts run",
+    "qa": "tsx executor.ts",
+    "qa:run": "tsx executor.ts run",
+    "qa:list": "tsx executor.ts list",
+    "qa:debug": "tsx executor.ts debug",
+    "qa:report": "tsx executor.ts report",
+    "typecheck": "tsc --noEmit --project tsconfig.cli.json"
   },
   "keywords": [],
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.65.0",
     "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "commander": "^15.1.0"
   }
 }
