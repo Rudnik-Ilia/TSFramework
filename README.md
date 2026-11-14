@@ -72,6 +72,46 @@ npm run qa:report
 
 The CLI propagates the Playwright exit code. Invalid arguments return a non-zero exit code.
 
+## Docker and scheduled GitHub Actions
+
+Run all tests locally in the same container used by CI:
+
+```bash
+docker compose up \
+  --build \
+  --abort-on-container-exit \
+  --exit-code-from tests
+```
+
+The nightly workflow runs every day at `02:00 Asia/Jerusalem` and can also be started manually from the GitHub Actions page. It:
+
+1. Builds the Playwright image.
+2. Pushes it to private GHCR as `e2e-<commit-sha>`.
+3. Runs all tests through Docker Compose.
+4. Uploads `reports/`, Docker Compose logs, and `docker inspect` as GitHub artifacts for 30 days.
+5. Removes temporary containers while preserving the immutable image in GHCR.
+
+Download an image from GHCR:
+
+```bash
+docker pull ghcr.io/<owner>/<repository>:e2e-<commit-sha>
+```
+
+Artifacts produced by the workflow:
+
+```text
+artifacts/
+├── docker-compose.log
+└── container-inspect.json
+
+reports/
+└── <report-id>/
+    ├── html/
+    └── test-results/
+        ├── trace.zip
+        └── screenshots
+```
+
 ### CLI architecture
 
 ```text

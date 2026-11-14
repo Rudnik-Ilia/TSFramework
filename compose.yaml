@@ -1,0 +1,22 @@
+name: tsframework
+
+services:
+  tests:
+    image: ${E2E_IMAGE:-tsframework-e2e:local}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    init: true
+    ipc: host
+    environment:
+      CI: "true"
+    volumes:
+      - ./reports:/app/reports
+    command:
+      - npm
+      - run
+      - qa
+      - --
+      - run
+      - --browser
+      - ${E2E_BROWSER:-chromium}

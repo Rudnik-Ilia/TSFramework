@@ -1,0 +1,97 @@
+name: Nightly Playwright E2E
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+      timezone: "Asia/Jerusalem"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: nightly-playwright-e2e
+  cancel-in-progress: false
+
+env:
+  COMPOSE_PROJECT_NAME: tsframework-e2e-${{ github.run_id }}
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Prepare image name
+        shell: bash
+        run: |
+          echo "E2E_IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}:e2e-${GITHUB_SHA}" >> "$GITHUB_ENV"
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push immutable test image
+        shell: bash
+        run: |
+          docker build --pull --tag "$E2E_IMAGE" .
+          docker push "$E2E_IMAGE"
+
+      - name: Run Playwright tests and collect container diagnostics
+        id: playwright
+        shell: bash
+        run: |
+          mkdir -p artifacts reports
+          set +e
+
+          docker compose up \
+            --no-build \
+            --abort-on-container-exit \
+            --exit-code-from tests
+
+          test_exit_code=$?
+
+          docker compose logs --no-color > artifacts/docker-compose.log 2>&1 || true
+
+          container_id="$(docker compose ps --all --quiet tests)"
+          if [ -n "$container_id" ]; then
+            docker inspect "$container_id" > artifacts/container-inspect.json
+          fi
+
+          echo "exit_code=$test_exit_code" >> "$GITHUB_OUTPUT"
+
+      - name: Upload reports and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: playwright-results-${{ github.run_id }}
+          path: |
+            artifacts/
+            reports/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Remove temporary containers
+        if: always()
+        shell: bash
+        run: docker compose down --volumes --remove-orphans
+
+      - name: Propagate Playwright exit code
+        if: always()
+        shell: bash
+        env:
+          TEST_EXIT_CODE: ${{ steps.playwright.outputs.exit_code }}
+        run: |
+          if [[ ! "$TEST_EXIT_CODE" =~ ^[0-9]+$ ]]; then
+            echo "Playwright exit code was not captured."
+            exit 1
+          fi
+
+          exit "$TEST_EXIT_CODE"

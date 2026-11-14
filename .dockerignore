@@ -1,0 +1,10 @@
+.git
+.github
+node_modules
+reports
+artifacts
+test-results
+playwright-report
+.env
+.env.*
+npm-debug.log*

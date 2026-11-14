@@ -6,6 +6,10 @@ const settingsFile = process.env.PW_SETTINGS ?? "playwright.settings.json";
 
 const config = JSON.parse(readFileSync(settingsFile, "utf8").replaceAll("{reportId}", reportId()));
 
+if (process.env.CI === "true") {
+  config.use.headless = true;
+}
+
 config.projects = config.projects.map((project: { name: string; device: keyof typeof devices }) => ({
   name: project.name,
   use: devices[project.device],
