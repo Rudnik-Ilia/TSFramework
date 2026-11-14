@@ -6,6 +6,8 @@ const ID: string = reportId();
 export default defineConfig({
   testDir: "./tests",
   outputDir: `reports/${ID}/test-results`,
+  // fullyParallel: true,
+  // workers: 4,
 
   timeout: 30_000,
 
