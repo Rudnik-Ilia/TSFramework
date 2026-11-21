@@ -1,5 +1,7 @@
 # TSFramework
 
+Playwright TypeScript E2E framework for Talkspace Canary authentication.
+
 ## QA CLI
 
 ```bash
@@ -25,14 +27,10 @@ npm run qa -- report reports/<report-id>/html
 
 ```bash
 # By test name
-npm run qa -- run "submits valid data set 1"
-
-# By file or file and line
-npm run qa -- run --file tests/contact-us/contact-navigation.spec.ts
-npm run qa -- run --file tests/contact-us/contact-navigation.spec.ts:44
+npm run qa -- run "shows the login form"
 
 # By regular expression
-npm run qa -- run --grep "attachment"
+npm run qa -- run --grep "login|signup"
 
 # By tags; combined tags use AND matching
 npm run qa -- run --smoke
@@ -52,8 +50,8 @@ npm run qa -- run --parallel
 Options can be combined:
 
 ```bash
-npm run qa -- run "Contact Us" \
-  --file tests/contact-us/contact-navigation.spec.ts \
+npm run qa -- run "authentication" \
+  --grep "login|signup" \
   --smoke \
   --browser chromium \
   --workers 2 \

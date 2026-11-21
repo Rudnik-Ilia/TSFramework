@@ -40,10 +40,9 @@ function createProgram(execute: (argumentsList: readonly string[]) => Promise<vo
       `
 Examples:
   npm run qa -- run --smoke --browser chromium
-  npm run qa -- run "submits valid data set 1"
-  npm run qa -- run --file tests/contact-us/contact-navigation.spec.ts:44
+  npm run qa -- run "shows the login form"
   npm run qa -- list --smoke --regression
-  npm run qa -- debug --file tests/home-page/home.spec.ts
+  npm run qa -- debug --grep "login|signup"
   npm run qa -- report
 `,
     );
