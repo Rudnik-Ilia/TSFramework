@@ -1,0 +1,36 @@
+[    2487ms] [LOG] [Tracking][initTracker] @ https://app.canary.talkspace.com/signup:32
+[    2487ms] [LOG] %c App mode: COMMERCIAL color: red; font-size:20px; @ https://app.canary.talkspace.com/signup:32
+[    2493ms] [LOG] [Tracking][setSuperProperty] {browserLanguage: en-US} undefined @ https://app.canary.talkspace.com/signup:32
+[    2493ms] [LOG] [Tracking][setSuperProperty] {Platform: web} undefined @ https://app.canary.talkspace.com/signup:32
+[    2497ms] [LOG] 18:43:31:417 %cAgora-SDK [DEBUG]: color: #64B5F6; browser ua:  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 @ https://app.canary.talkspace.com/signup:32
+[    2497ms] [LOG] 18:43:31:418 %cAgora-SDK [INFO]: color: #1E88E5; font-weight: bold; browser info:  {name: Chrome, version: 157, os: Linux, osVersion: undefined, browserVersion: 157.0.0.0} @ https://app.canary.talkspace.com/signup:32
+[    2498ms] [LOG] 18:43:31:418 %cAgora-SDK [INFO]: color: #1E88E5; font-weight: bold; browser compatibility:  {getDisplayMedia: true, getStreamFromExtension: true, supportUnifiedPlan: true, supportMinBitrate: true, supportSetRtpSenderParameters: true} @ https://app.canary.talkspace.com/signup:32
+[    3224ms] [LOG] Appboy: Initialized for the Braze backend at "https://sdk.iad-02.braze.com/api/v3" with API key "06270417-0486-4a81-9a8b-3f9e09d791f9". @ https://app.canary.talkspace.com/signup:32
+[    3228ms] [LOG] Appboy: Generating session start event with time 1795279412149. Will expire 1795281212149 @ https://app.canary.talkspace.com/signup:32
+[    3233ms] [LOG] Appboy: Invoking new session subscriptions @ https://app.canary.talkspace.com/signup:32
+[    3239ms] [LOG] Appboy: Upgrading indexedDB AppboyServiceWorkerAsyncStorage to v5... @ https://app.canary.talkspace.com/signup:32
+[    3724ms] [LOG] Appboy: Trigger event open did not match any trigger conditions. @ https://app.canary.talkspace.com/signup:32
+[    4140ms] [INFO] [LaunchDarkly] LaunchDarkly client initialized @ https://app.canary.talkspace.com/signup:32
+[    4144ms] [INFO] [LaunchDarkly] Opening stream connection to https://clientstream.launchdarkly.com/eval/63188b1d6dbe1c11ce5dd39c/eyJraW5kIjoidXNlciIsImtleSI6ImFub255bW91cy1jbGllbnQtdXNlciJ9 @ https://app.canary.talkspace.com/signup:32
+[    4306ms] [LOG] [Tracking][trackEvent] Talkspace Page View {Page: Signup, eventCategory: direct, registrationUrl: https://app.canary.talkspace.com/signup, funnelVariation: direct, roomType: privateRoom} [mixpanel] @ https://app.canary.talkspace.com/signup:32
+[    4306ms] [LOG] [Tracking][trackEvent] Landing Page CTA Click {Flow: CT} [mixpanel] @ https://app.canary.talkspace.com/signup:32
+[    6312ms] [LOG] [Tracking][initTracker] @ https://match.canary.talkspace.com/dispatcher:28
+[    7237ms] [INFO] [LaunchDarkly] LaunchDarkly client initialized @ https://match.canary.talkspace.com/dispatcher:28
+[    7245ms] [INFO] [LaunchDarkly] Opening stream connection to https://clientstream.launchdarkly.com/eval/63188b1d6dbe1c11ce5dd39c/eyJraW5kIjoidXNlciIsImlzQXV0aGVudGljYXRlZCI6ZmFsc2UsInV1aWQiOiI5Y2ZiOWZlZC02MGVmLTQ5MzktYmMzYS03MjA2OTY2OGUwNmIiLCJxbUNyZWF0ZWRBdCI6IjIwMjYtMTEtMjFUMTY6NDM6MzUuNjQ3WiIsInFtU2VydmljZVR5cGUiOiIiLCJpbnN1cmFuY2VQcm92aWRlciI6IiIsImluc3RhbGxlZEFwcFZlcnNpb24iOiIiLCJrZXkiOiI5Y2ZiOWZlZC02MGVmLTQ5MzktYmMzYS03MjA2OTY2OGUwNmIifQ @ https://match.canary.talkspace.com/dispatcher:28
+[    9291ms] [LOG] [Tracking][setSuperProperty] {Platform: web, Page Name: Quickmatch Home, Flow ID: 90} [mixpanel] @ https://match.canary.talkspace.com/dispatcher:28
+[    9291ms] [LOG] [Tracking][trackEvent] Landing Page CTA Click {Flow: Dispatcher} [mixpanel] @ https://match.canary.talkspace.com/dispatcher:28
+[    9292ms] [LOG] [Tracking][trackEvent] initiatedQuickmatch {} [GTM] @ https://match.canary.talkspace.com/dispatcher:28
+[    9293ms] [LOG] [Tracking][trackEvent] QM Initiated {} [segment] @ https://match.canary.talkspace.com/dispatcher:28
+[    9293ms] [LOG] [Tracking][trackEvent] Talkspace Page View {Page: QuickMatch Home, ver: 2, cleanURL: https://match.canary.talkspace.com/flow/90/step/1, isGDPR: false} [mixpanel] @ https://match.canary.talkspace.com/dispatcher:28
+[    9294ms] [LOG] [Tracking][setSuperProperty] {checkInWizardThemeVersion: 1.1.0, defaultThemeVersion: 0.1.0, homePageThemeVersion: 2.0.0, inRoomSchedulingThemeVersion: 1.1.0, quickmatchOrIntakeBHFlowThemeVersion: 2.0.0} undefined @ https://match.canary.talkspace.com/dispatcher:28
+[    9310ms] [LOG] [Tracking][trackEvent] TS Experiment Session {experimentName: milestone-1-dispatch-screen, variantName: control} undefined @ https://match.canary.talkspace.com/dispatcher:28
+[    9592ms] [INFO] [LaunchDarkly] Closing stream connection @ https://match.canary.talkspace.com/dispatcher:28
+[    9593ms] [INFO] [LaunchDarkly] Opening stream connection to https://clientstream.launchdarkly.com/eval/63188b1d6dbe1c11ce5dd39c/eyJraW5kIjoidXNlciIsImlzQXV0aGVudGljYXRlZCI6ZmFsc2UsInV1aWQiOiI5Y2ZiOWZlZC02MGVmLTQ5MzktYmMzYS03MjA2OTY2OGUwNmIiLCJxbUNyZWF0ZWRBdCI6IjIwMjYtMTEtMjFUMTY6NDM6MzUuNjQ3WiIsInFtU2VydmljZVR5cGUiOiJwc3ljaG90aGVyYXB5IiwiaW5zdXJhbmNlUHJvdmlkZXIiOiIiLCJpbnN0YWxsZWRBcHBWZXJzaW9uIjoiIiwia2V5IjoiOWNmYjlmZWQtNjBlZi00OTM5LWJjM2EtNzIwNjk2NjhlMDZiIn0 @ https://match.canary.talkspace.com/dispatcher:28
+[   79502ms] [LOG] [Tracking][setSuperProperty] {Unified Dispatcher Selection: Individual Therapy} [mixpanel] @ https://match.canary.talkspace.com/dispatcher:28
+[   79782ms] [INFO] [LaunchDarkly] Closing stream connection @ https://match.canary.talkspace.com/dispatcher:28
+[   79782ms] [INFO] [LaunchDarkly] Opening stream connection to https://clientstream.launchdarkly.com/eval/63188b1d6dbe1c11ce5dd39c/eyJraW5kIjoidXNlciIsImlzQXV0aGVudGljYXRlZCI6ZmFsc2UsInV1aWQiOiI5Y2ZiOWZlZC02MGVmLTQ5MzktYmMzYS03MjA2OTY2OGUwNmIiLCJxbUNyZWF0ZWRBdCI6IjIwMjYtMTEtMjFUMTY6NDM6MzUuNjQ3WiIsInFtU2VydmljZVR5cGUiOiJwc3ljaG90aGVyYXB5IiwiaW5zdXJhbmNlUHJvdmlkZXIiOiIiLCJpbnN0YWxsZWRBcHBWZXJzaW9uIjoiIiwia2V5IjoiOWNmYjlmZWQtNjBlZi00OTM5LWJjM2EtNzIwNjk2NjhlMDZiIiwicW1GbG93SWQiOjEzMn0 @ https://match.canary.talkspace.com/dispatcher:28
+[   79837ms] [LOG] [Tracking][trackEvent] Answer Questionnaire {Question: selectService, Response: psychotherapy, Flow: Dispatcher, Funnel Name: QuickMatch} [mixpanel] @ https://match.canary.talkspace.com/dispatcher:28
+[   79838ms] [LOG] [Tracking][setSuperProperty] {Platform: web, Page Name: Quickmatch Home, Flow ID: 132} [mixpanel] @ https://match.canary.talkspace.com/dispatcher:28
+[   79887ms] [LOG] [Tracking][trackEvent] Page View {Page Name: Presenting Problem, flowId: 132} undefined @ https://match.canary.talkspace.com/dispatcher:28
+[   79887ms] [LOG] [Tracking][trackEvent] TS Experiment Session {experimentName: milestone-1-hide-progress-bar, variantName: control} undefined @ https://match.canary.talkspace.com/dispatcher:28
+[   79940ms] [LOG] [Tracking][trackEvent] TS Experiment Session {experimentName: new-add-eap-screen, variantName: treatment} undefined @ https://match.canary.talkspace.com/dispatcher:28

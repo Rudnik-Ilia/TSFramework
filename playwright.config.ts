@@ -1,10 +1,11 @@
 import { readFileSync } from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
-import { reportId } from "./src/utils/randomUtil";
+import { RandomUtil } from "./infra/utils/randomUtil";
 
 const settingsFile = process.env.PW_SETTINGS ?? "playwright.settings.json";
 
-const config = JSON.parse(readFileSync(settingsFile, "utf8").replaceAll("{reportId}", reportId()));
+const reportId = RandomUtil.createReportName("report");
+const config = JSON.parse(readFileSync(settingsFile, "utf8").replaceAll("{reportId}", reportId));
 
 if (process.env.CI === "true") {
   config.use.headless = true;

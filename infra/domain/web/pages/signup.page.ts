@@ -79,6 +79,7 @@ export class SignupPage extends BasePage {
   async fillNickname(nickname: string): Promise<void> {
     await this.nicknameInput.fill(nickname);
   }
+
   @step
   async fillAccountDetails(email: string, password: string, nickname: string): Promise<void> {
     await this.fillEmail(email);

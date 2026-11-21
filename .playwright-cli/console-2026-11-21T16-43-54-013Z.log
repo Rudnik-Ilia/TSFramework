@@ -1,0 +1,17 @@
+[    2469ms] [LOG] [Tracking][initTracker] @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    2470ms] [LOG] %c App mode: COMMERCIAL color: red; font-size:20px; @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    2475ms] [LOG] [Tracking][setSuperProperty] {browserLanguage: en-US} undefined @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    2475ms] [LOG] [Tracking][setSuperProperty] {Platform: web} undefined @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    2478ms] [LOG] 18:43:56:490 %cAgora-SDK [DEBUG]: color: #64B5F6; browser ua:  Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36 @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    2478ms] [LOG] 18:43:56:491 %cAgora-SDK [INFO]: color: #1E88E5; font-weight: bold; browser info:  {name: Chrome, version: 157, os: Linux, osVersion: undefined, browserVersion: 157.0.0.0} @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    2479ms] [LOG] 18:43:56:491 %cAgora-SDK [INFO]: color: #1E88E5; font-weight: bold; browser compatibility:  {getDisplayMedia: true, getStreamFromExtension: true, supportUnifiedPlan: true, supportMinBitrate: true, supportSetRtpSenderParameters: true} @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3030ms] [LOG] Appboy: Initialized for the Braze backend at "https://sdk.iad-02.braze.com/api/v3" with API key "06270417-0486-4a81-9a8b-3f9e09d791f9". @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3034ms] [LOG] Appboy: Generating session start event with time 1795279437047. Will expire 1795281237047 @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3038ms] [LOG] Appboy: Invoking new session subscriptions @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3043ms] [LOG] Appboy: Upgrading indexedDB AppboyServiceWorkerAsyncStorage to v5... @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3498ms] [LOG] Appboy: Trigger event open did not match any trigger conditions. @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3663ms] [INFO] [LaunchDarkly] LaunchDarkly client initialized @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3667ms] [INFO] [LaunchDarkly] Opening stream connection to https://clientstream.launchdarkly.com/eval/63188b1d6dbe1c11ce5dd39c/eyJraW5kIjoidXNlciIsImtleSI6ImFub255bW91cy1jbGllbnQtdXNlciJ9 @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3793ms] [LOG] [Tracking][trackEvent] Talkspace Page View {Page: Signup, eventCategory: direct, registrationUrl: https://app.canary.talkspace.com/signup/autoswitchpt, funnelVariation: direct, roomType: privateRoom} [mixpanel] @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3793ms] [LOG] [Tracking][trackEvent] Landing Page CTA Click {Flow: CT} [mixpanel] @ https://app.canary.talkspace.com/signup/autoswitchpt:32
+[    3864ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "username"): (More info: https://goo.gl/9p2vKq) %o @ https://app.canary.talkspace.com/signup/autoswitchpt:1
