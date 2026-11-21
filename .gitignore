@@ -6,3 +6,4 @@ AGENTS.md
 .prettierrc
 reports
 artifacts
+.playwright-cli

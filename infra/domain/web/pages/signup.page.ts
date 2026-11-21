@@ -24,7 +24,7 @@ import {
 import { BasePage } from "./base.page";
 
 export class SignupPage extends BasePage {
-  static readonly path = "/signup";
+  static readonly path = "/signup/autoswitchpt";
 
   readonly heading: Locator;
   readonly emailInput: Locator;
