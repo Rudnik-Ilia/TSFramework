@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 
-import type { ContactData } from "../../data/contact-data";
+import type { ContactData } from "../../contracts/data/contact";
 import { BasePage } from "./base.page";
 import { step } from "../../utils/step";
 

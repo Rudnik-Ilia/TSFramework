@@ -3,11 +3,7 @@ import type { TestCommandMode, TestCommandOptions } from "./types";
 const smokeTag = "@smoke";
 const regressionTag = "@regression";
 
-export function buildTestArguments(
-  mode: TestCommandMode,
-  testName: string | undefined,
-  options: TestCommandOptions,
-): string[] {
+export function buildTestArguments(mode: TestCommandMode, testName: string | undefined, options: TestCommandOptions): string[] {
   const argumentsList = ["test"];
 
   if (options.file !== undefined) {

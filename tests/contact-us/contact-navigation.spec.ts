@@ -1,7 +1,7 @@
 import { basename, resolve } from "node:path";
 
 import { test } from "../../src/core/fixtures/pages.fixture";
-import type { ContactData } from "../../src/data/contact-data";
+import type { ContactData } from "../../src/contracts/data/contact";
 import { ContactPage } from "../../src/domain/pages/contact.page";
 import validContactDataJson from "./test_data/contact-us.data.json";
 import uploadContactDataJson from "./test_data/contact-us-upload.data.json";
