@@ -15,6 +15,7 @@ export const SHOW_PASSWORD_BUTTON_SIGNUP = "see password";
 export const NICKNAME_INPUT_SIGNUP = "nicknameInput";
 export const COUNTRY_DROPDOWN_SIGNUP = "countryDropdown";
 export const COUNTRY_DROPDOWN_INPUT_SIGNUP = "countryDropdownInput";
+export const COUNTRY_DROPDOWN_SELECTED_VALUE_SIGNUP = "countryDropdownSelectedValue";
 export const COUNTRY_DROPDOWN_OPTION_PREFIX_SIGNUP = "countryDropdownOption-";
 export const STATE_DROPDOWN_SIGNUP = "stateDropdown";
 export const STATE_DROPDOWN_INPUT_SIGNUP = "stateDropdownInput";

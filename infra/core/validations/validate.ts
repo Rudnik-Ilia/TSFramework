@@ -18,6 +18,14 @@ export class Validate {
     await expect(locator).toHaveValue(expectedValue);
   }
 
+  static async containText(locator: Locator, expectedText: string | RegExp): Promise<void> {
+    await expect(locator).toContainText(expectedText);
+  }
+
+  static async enabled(locator: Locator): Promise<void> {
+    await expect(locator).toBeEnabled();
+  }
+
   static async haveUrl(page: Page, expectedUrl: string | RegExp): Promise<void> {
     await expect(page).toHaveURL(expectedUrl);
   }

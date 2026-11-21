@@ -1,0 +1,92 @@
+[
+  {
+    "email": "playwright.us.01@example.com",
+    "password": "UnitedStatesTest101!",
+    "nickname": "US User 01",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "CA",
+    "stateName": "California"
+  },
+  {
+    "email": "playwright.us.02@example.com",
+    "password": "UnitedStatesTest102!",
+    "nickname": "US User 02",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "NY",
+    "stateName": "New York"
+  },
+  {
+    "email": "playwright.us.03@example.com",
+    "password": "UnitedStatesTest103!",
+    "nickname": "US User 03",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "TX",
+    "stateName": "Texas"
+  },
+  {
+    "email": "playwright.us.04@example.com",
+    "password": "UnitedStatesTest104!",
+    "nickname": "US User 04",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "FL",
+    "stateName": "Florida"
+  },
+  {
+    "email": "playwright.us.05@example.com",
+    "password": "UnitedStatesTest105!",
+    "nickname": "US User 05",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "IL",
+    "stateName": "Illinois"
+  },
+  {
+    "email": "playwright.us.06@example.com",
+    "password": "UnitedStatesTest106!",
+    "nickname": "US User 06",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "WA",
+    "stateName": "Washington"
+  },
+  {
+    "email": "playwright.us.07@example.com",
+    "password": "UnitedStatesTest107!",
+    "nickname": "US User 07",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "MA",
+    "stateName": "Massachusetts"
+  },
+  {
+    "email": "playwright.us.08@example.com",
+    "password": "UnitedStatesTest108!",
+    "nickname": "US User 08",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "CO",
+    "stateName": "Colorado"
+  },
+  {
+    "email": "playwright.us.09@example.com",
+    "password": "UnitedStatesTest109!",
+    "nickname": "US User 09",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "AZ",
+    "stateName": "Arizona"
+  },
+  {
+    "email": "playwright.us.10@example.com",
+    "password": "UnitedStatesTest110!",
+    "nickname": "US User 10",
+    "countryCode": "US",
+    "countryName": "United States",
+    "stateCode": "OR",
+    "stateName": "Oregon"
+  }
+]

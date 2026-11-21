@@ -6,7 +6,7 @@ import { buildTestArguments } from "./playwright-arguments";
 import { spawnPlaywright } from "./process-runner";
 import { resolveReportDirectory } from "./report-resolver";
 import type { TestCommandMode, TestCommandOptions } from "./types";
-import { parseFileSelector, parseNonEmptyValue, parsePositiveInteger, parseRegularExpression } from "./validation";
+import { parseFileSelector, parseNonEmptyValue, parsePositiveInteger, parseRegularExpression } from "./argsValidation";
 
 export async function runCli(argumentsList: readonly string[] = process.argv): Promise<number> {
   let commandExitCode = 0;

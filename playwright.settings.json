@@ -20,17 +20,22 @@
   "use": {
     "baseURL": "https://app.canary.talkspace.com",
     "headless": false,
+    "viewport": null,
     "testIdAttribute": "data-qa",
     "trace": "retain-on-failure",
     "screenshot": "only-on-failure",
     "launchOptions": {
-      "slowMo": 500
+      "slowMo": 5000,
+      "args": ["--start-maximized"]
     }
   },
   "projects": [
     {
       "name": "chromium",
-      "device": "Desktop Chrome"
+      "use": {
+        "browserName": "chromium",
+        "viewport": null
+      }
     }
   ]
 }

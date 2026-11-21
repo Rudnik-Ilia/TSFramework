@@ -5,6 +5,7 @@ import {
   CANCELLATION_POLICY_LINK_SIGNUP,
   COUNTRY_DROPDOWN_INPUT_SIGNUP,
   COUNTRY_DROPDOWN_OPTION_PREFIX_SIGNUP,
+  COUNTRY_DROPDOWN_SELECTED_VALUE_SIGNUP,
   COUNTRY_DROPDOWN_SIGNUP,
   CREATE_ACCOUNT_BUTTON_SIGNUP,
   EMAIL_INPUT_SIGNUP,
@@ -33,6 +34,7 @@ export class SignupPage extends BasePage {
   readonly nicknameInput: Locator;
   readonly countryDropdown: Locator;
   readonly countryDropdownInput: Locator;
+  readonly countryDropdownSelectedValue: Locator;
   readonly stateDropdown: Locator;
   readonly stateDropdownInput: Locator;
   readonly createAccountButton: Locator;
@@ -52,6 +54,7 @@ export class SignupPage extends BasePage {
     this.nicknameInput = page.getByTestId(NICKNAME_INPUT_SIGNUP);
     this.countryDropdown = page.getByTestId(COUNTRY_DROPDOWN_SIGNUP);
     this.countryDropdownInput = page.getByTestId(COUNTRY_DROPDOWN_INPUT_SIGNUP);
+    this.countryDropdownSelectedValue = page.getByTestId(COUNTRY_DROPDOWN_SELECTED_VALUE_SIGNUP);
     this.stateDropdown = page.getByTestId(STATE_DROPDOWN_SIGNUP);
     this.stateDropdownInput = page.getByTestId(STATE_DROPDOWN_INPUT_SIGNUP);
     this.createAccountButton = page.getByTestId(CREATE_ACCOUNT_BUTTON_SIGNUP);
@@ -87,14 +90,14 @@ export class SignupPage extends BasePage {
     await this.fillNickname(nickname);
   }
 
-  async selectCountry(countryCode: string): Promise<void> {
+  async selectCountry(countryName: string): Promise<void> {
     await this.countryDropdown.click();
-    await this.page.getByTestId(`${COUNTRY_DROPDOWN_OPTION_PREFIX_SIGNUP}${countryCode}`).click();
+    await this.countryDropdownInput.fill(countryName);
   }
 
-  async selectState(stateCode: string): Promise<void> {
+  async selectState(stateName: string): Promise<void> {
     await this.stateDropdown.click();
-    await this.page.getByTestId(`${STATE_DROPDOWN_OPTION_PREFIX_SIGNUP}${stateCode}`).click();
+    await this.stateDropdownInput.fill(stateName);
   }
 
   async submit(): Promise<void> {
