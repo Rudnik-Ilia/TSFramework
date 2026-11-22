@@ -90,9 +90,10 @@ export class SignupPage extends BasePage {
     await this.fillNickname(nickname);
   }
 
-  async selectCountry(countryName: string): Promise<void> {
+  async selectCountry(countryName: string, countryCode: string): Promise<void> {
     await this.countryDropdown.click();
     await this.countryDropdownInput.fill(countryName);
+    await this.page.getByTestId(`${COUNTRY_DROPDOWN_OPTION_PREFIX_SIGNUP}${countryCode}`).click();
   }
 
   async selectState(stateName: string): Promise<void> {

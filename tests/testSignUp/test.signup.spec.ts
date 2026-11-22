@@ -13,7 +13,7 @@ test.describe("Signup", () => {
         await Validate.visible(signupPage.heading);
 
         await signupPage.fillAccountDetails(setData.email, setData.password, setData.nickname);
-        await signupPage.selectCountry(setData.countryName);
+        await signupPage.selectCountry(setData.countryName, setData.countryCode);
 
         await Validate.haveValue(signupPage.emailInput, setData.email);
         await Validate.haveValue(signupPage.passwordInput, setData.password);
