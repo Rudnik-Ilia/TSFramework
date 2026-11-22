@@ -21,15 +21,18 @@ test.describe("Signup", () => {
         await Validate.haveValue(signupPage.nicknameInput, setData.nickname);
         await Validate.containText(signupPage.countryDropdown, setData.countryName);
         await Validate.enabled(signupPage.createAccountButton);
+
+        await signupPage.submit();
       },
     );
   }
 });
 
-test.describe("Signup", () => {
-  test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ loginPage }) => {
-    await loginPage.goto();
-    await Validate.visible(loginPage.heading);
-    console.log(await waitForVerificationCode());
+for (const setData of formData) {
+  test.describe("Signup", () => {
+    test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ emailVerificationSentPage }) => {
+      await emailVerificationSentPage.goto(setData.email);
+      await Validate.visible(emailVerificationSentPage.getEmailAddress(setData.email));
+    });
   });
-});
+}

@@ -1,14 +1,20 @@
 import { test as base } from "@playwright/test";
 
+import { EmailVerificationSentPage } from "../../domain/web/pages/email-verification-sent.page";
 import { LoginPage } from "../../domain/web/pages/login.page";
 import { SignupPage } from "../../domain/web/pages/signup.page";
 
 interface PageFixtures {
+  emailVerificationSentPage: EmailVerificationSentPage;
   loginPage: LoginPage;
   signupPage: SignupPage;
 }
 
 export const test = base.extend<PageFixtures>({
+  emailVerificationSentPage: async ({ page }, use) => {
+    await use(new EmailVerificationSentPage(page));
+  },
+
   loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
   },
