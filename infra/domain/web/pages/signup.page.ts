@@ -101,7 +101,7 @@ export class SignupPage extends BasePage {
     await this.stateDropdownInput.fill(stateName);
   }
 
-  async submit(): Promise<void> {
+  async createAccount(): Promise<void> {
     await this.createAccountButton.click();
   }
 }
