@@ -17,6 +17,7 @@
   "devDependencies": {
     "@playwright/test": "^1.65.0",
     "@types/node": "^26.6.6",
+    "mailslurp-client": "^17.6.0",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   },

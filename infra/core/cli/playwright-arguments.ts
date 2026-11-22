@@ -2,6 +2,7 @@ import type { TestCommandMode, TestCommandOptions } from "./types";
 
 const smokeTag = "@smoke";
 const regressionTag = "@regression";
+const sanityTag = "@sanity";
 
 export function buildTestArguments(mode: TestCommandMode, testName: string | undefined, options: TestCommandOptions): string[] {
   const argumentsList = ["test"];
@@ -60,6 +61,10 @@ function buildGrepPattern(testName: string | undefined, options: TestCommandOpti
 
   if (options.regression === true) {
     patterns.push(escapeRegularExpression(regressionTag));
+  }
+
+  if (options.sanity === true) {
+    patterns.push(escapeRegularExpression(sanityTag));
   }
 
   if (patterns.length === 0) {

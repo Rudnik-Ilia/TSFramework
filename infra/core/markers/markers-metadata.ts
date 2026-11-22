@@ -1,7 +1,7 @@
 export const TestTags = {
   SMOKE: "@smoke",
   REGRESSION: "@regression",
-  SIGNUP: "@signup",
+  SANITY: "@sanity",
 } as const;
 
 type TestTag = (typeof TestTags)[keyof typeof TestTags];

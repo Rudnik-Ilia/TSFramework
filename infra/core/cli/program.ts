@@ -41,7 +41,7 @@ function createProgram(execute: (argumentsList: readonly string[]) => Promise<vo
 Examples:
   npm run qa -- run --smoke --browser chromium
   npm run qa -- run "shows the login form"
-  npm run qa -- list --smoke --regression
+  npm run qa -- list --smoke --regression --sanity
   npm run qa -- debug --grep "login|signup"
   npm run qa -- report
 `,
@@ -78,6 +78,7 @@ function createTestCommand(
     .argument("[test-name]", "Test title text; combined with --grep and tag flags")
     .option("--smoke", "Require the @smoke tag")
     .option("--regression", "Require the @regression tag")
+    .option("--sanity", "Require the @sanity tag")
     .option("--browser <name>", "Playwright project/browser name", parseNonEmptyValue)
     .option("--workers <count>", "Positive worker count", parsePositiveInteger)
     .option("--headed", "Run with a visible browser")

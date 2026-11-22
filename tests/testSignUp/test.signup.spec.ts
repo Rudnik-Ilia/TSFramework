@@ -1,5 +1,6 @@
+import { waitForVerificationCode } from "../../infra/clients/mailClient";
 import { test } from "../../infra/core/fixtures/pages.fixture";
-import { testMetadata, TestTags } from "../../infra/core/markers/test-metadata";
+import { testMetadata, TestTags } from "../../infra/core/markers/markers-metadata";
 import { Validate } from "../../infra/core/validations/validate";
 import formData from "./test_data/data_single.json";
 
@@ -23,4 +24,12 @@ test.describe("Signup", () => {
       },
     );
   }
+});
+
+test.describe("Signup", () => {
+  test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ loginPage }) => {
+    await loginPage.goto();
+    await Validate.visible(loginPage.heading);
+    console.log(await waitForVerificationCode());
+  });
 });
