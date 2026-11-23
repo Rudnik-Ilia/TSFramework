@@ -1,11 +1,10 @@
 import { test as base } from "@playwright/test";
 
-import { EmailVerificationCompletePage } from "../../domain/web/pages/email-verification-complete.page";
 import { EmailVerificationOtpPage } from "../../domain/web/pages/email-verification-otp.page";
 import { EmailResendPage } from "../../domain/web/pages/email-resend.page";
 import { LoginPage } from "../../domain/web/pages/login.page";
 import { SignupPage } from "../../domain/web/pages/signup.page";
-import { VerificationEmailPage } from "../../domain/web/pages/verification-email.page";
+import { WelcomeTalkspace } from "../../domain/web/pages/welcome-talkspace.page";
 
 interface PageFixtures {
   emailVerificationCompletePage: EmailVerificationCompletePage;
@@ -13,12 +12,12 @@ interface PageFixtures {
   emailResendPage: EmailResendPage;
   loginPage: LoginPage;
   signupPage: SignupPage;
-  verificationEmailPage: VerificationEmailPage;
+  welcomeTalkspace: WelcomeTalkspace;
 }
 
 export const test = base.extend<PageFixtures>({
-  emailVerificationCompletePage: async ({ page }, use) => {
-    await use(new EmailVerificationCompletePage(page));
+  welcomeTalkspace: async ({ page }, use) => {
+    await use(new WelcomeTalkspace(page));
   },
 
   emailVerificationOtpPage: async ({ page }, use) => {
@@ -39,10 +38,6 @@ export const test = base.extend<PageFixtures>({
 
   signupPage: async ({ page }, use) => {
     await use(new SignupPage(page));
-  },
-
-  verificationEmailPage: async ({ page }, use) => {
-    await use(new VerificationEmailPage(page));
   },
 });
 

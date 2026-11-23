@@ -1,6 +1,7 @@
 import { test } from "../../infra/core/fixtures/mail.fixture";
 import { testMetadata, TestTags } from "../../infra/core/markers/markers-metadata";
 import { Validate } from "../../infra/core/validations/validate";
+import { WelcomeTalkspace } from "../../infra/domain/web/pages/welcome-talkspace.page";
 import formData from "./test_data/data_single.json";
 
 test.describe("Signup", () => {
@@ -29,21 +30,15 @@ test.describe("Signup", () => {
 
 for (const setData of formData) {
   test.describe("Signup", () => {
-    test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ emailResendPage, mailClient, verificationEmailPage, loginPage }) => {
-      test.slow();
-
+    test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ emailResendPage, mailClient, welcomeTalkspace, loginPage }) => {
       // await emailResendPage.goto(setData.email);
       // await Validate.visible(emailResendPage.getEmailAddress(setData.email));
       // const resendRequestedAt = new Date();
       // await emailResendPage.resendEmail();
 
       const verificationLink: string = await mailClient.GetEmailLink();
-      console.log(verificationLink);
-      // await verificationEmailPage.goto(verificationEmail.previewUrl);
-      //
-      //       const emailVerificationCompletePage = await verificationEmailPage.clickVerifyEmail();
-      //       await Validate.haveUrl(emailVerificationCompletePage.page, loginPage.getFullUrl());
-      //       await Validate.visible(emailVerificationCompletePage.heading);
+      await welcomeTalkspace.goto(verificationLink);
+      await welcomeTalkspace.verifySucces();
     });
   });
 }
