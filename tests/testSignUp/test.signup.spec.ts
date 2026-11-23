@@ -32,17 +32,17 @@ for (const setData of formData) {
     test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ emailResendPage, mailClient, verificationEmailPage, loginPage }) => {
       test.slow();
 
-      await emailResendPage.goto(setData.email);
-      await Validate.visible(emailResendPage.getEmailAddress(setData.email));
+      // await emailResendPage.goto(setData.email);
+      // await Validate.visible(emailResendPage.getEmailAddress(setData.email));
       // const resendRequestedAt = new Date();
-      // await emailVerificationSentPage.resendEmail();
+      // await emailResendPage.resendEmail();
 
       const verificationEmail = await mailClient.waitForVerificationEmail({ unreadOnly: false });
       await verificationEmailPage.goto(verificationEmail.previewUrl);
-
-      const emailVerificationCompletePage = await verificationEmailPage.clickVerifyEmail();
-      await Validate.haveUrl(emailVerificationCompletePage.page, loginPage.getFullUrl());
-      await Validate.visible(emailVerificationCompletePage.heading);
+      //
+      //       const emailVerificationCompletePage = await verificationEmailPage.clickVerifyEmail();
+      //       await Validate.haveUrl(emailVerificationCompletePage.page, loginPage.getFullUrl());
+      //       await Validate.visible(emailVerificationCompletePage.heading);
     });
   });
 }

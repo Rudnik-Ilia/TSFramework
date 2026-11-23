@@ -19,21 +19,20 @@ export class MailClient {
 
   constructor(
     apiKey = process.env.MAILSLURP_API_KEY ?? "sk_7ZSCitbRKnjPg0UQ_JX73kfqCWlZSgeVwlyHRmkeF7z87WH8cxgbSZMzEhqi5RsIweL6k5O1w4aosg3pz",
-    private readonly inboxId = process.env.MAILSLURP_INBOX_ID ?? "0170d9e2-6a0e-4737-839d-2993f98f18b1",
+    private readonly inboxId = process.env.MAILSLURP_INBOX_ID ?? "250076b5-12f0-47ec-9683-518232c5515d",
   ) {
-    //
-    //   if (!apiKey) {
-    //     throw new Error("MAILSLURP_API_KEY is not set");
-    //   }
-    //
-    //   if (!inboxId) {
-    //     throw new Error("MAILSLURP_INBOX_ID is not set");
-    //   }
+    if (!apiKey) {
+      throw new Error("MAILSLURP_API_KEY is not set");
+    }
+
+    if (!inboxId) {
+      throw new Error("MAILSLURP_INBOX_ID is not set");
+    }
     this.client = new MailSlurp({ apiKey });
   }
 
   async waitForVerificationCode(): Promise<string | undefined> {
-    const email = await this.waitForLatestEmail();
+    const email = await this.getEmail();
     return email.body?.match(/\b\d{6}\b/)?.[0];
   }
 
@@ -43,52 +42,23 @@ export class MailClient {
   }
 
   async waitForVerificationEmail(options: WaitForVerificationEmailOptions = {}): Promise<VerificationEmail> {
-    const { since, unreadOnly = true, verificationPath = MailClient.verificationPath } = options;
-    const email = await this.waitForLatestEmail(since, unreadOnly);
+    const { verificationPath = MailClient.verificationPath } = options;
+    const email = await this.getEmail();
+
     const [{ links }, { plainHtmlBodyUrl }] = await Promise.all([
-      this.client.emailController.getEmailLinks({
-        emailId: email.id,
-      }),
-      this.client.emailController.getEmailPreviewURLs({
-        emailId: email.id,
-      }),
+      this.client.emailController.getEmailLinks({ emailId: email.id }),
+      this.client.emailController.getEmailPreviewURLs({ emailId: email.id }),
     ]);
-    const verificationUrl = links.find((link) => link.includes(verificationPath));
+
+    const verificationUrl = links.find((link) => link.includes(MailClient.verificationPath));
 
     if (!verificationUrl) {
       throw new Error("Email verification link was not found");
     }
 
-    return {
-      previewUrl: plainHtmlBodyUrl,
-      verificationUrl,
-    };
+    return { previewUrl: plainHtmlBodyUrl, verificationUrl };
   }
-
-  private async waitForLatestEmail(since?: Date, unreadOnly = true): Promise<Email> {
-    const loginStartedAt = since ?? new Date();
-
-    return this.client.waitController.waitForLatestEmail({
-      inboxId: this.inboxId,
-      timeout: MailClient.timeout,
-      unreadOnly,
-      since,
-      // unreadOnly: true,
-      // since: loginStartedAt,
-    });
+  getEmail(): Promise<Email> {
+    return this.client.waitController.waitForLatestEmail({ inboxId: this.inboxId, timeout: MailClient.timeout });
   }
-}
-
-const mailClient = new MailClient();
-
-export async function waitForVerificationCode(): Promise<string | undefined> {
-  return mailClient.waitForVerificationCode();
-}
-
-export async function waitForVerificationLink(): Promise<string> {
-  return mailClient.waitForVerificationLink();
-}
-
-export async function waitForVerificationEmail(): Promise<VerificationEmail> {
-  return mailClient.waitForVerificationEmail();
 }
