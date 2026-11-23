@@ -1,6 +1,6 @@
 import { test as base } from "@playwright/test";
 
-import { EmailVerificationOtpPage } from "../../domain/web/pages/email-verification-code.page";
+import { EmailVerificationCodePage } from "../../domain/web/pages/email-verification-code.page";
 import { EmailResendPage } from "../../domain/web/pages/email-resend.page";
 import { LoginPage } from "../../domain/web/pages/login.page";
 import { SignupPage } from "../../domain/web/pages/signup.page";
@@ -20,7 +20,7 @@ export const test = base.extend<PageFixtures>({
   },
 
   emailVerificationCodePage: async ({ page }, use) => {
-    await use(new EmailVerificationOtpPage(page));
+    await use(new EmailVerificationCodePage(page));
   },
 
   emailResendPage: async ({ page }, use) => {

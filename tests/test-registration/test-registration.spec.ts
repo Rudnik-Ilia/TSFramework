@@ -12,8 +12,9 @@ const data = {
 //
 
 test.describe("Signup", () => {
-  test("Register flow", testMetadata("", TestTags.SANITY), async ({ mailClient }) => {
+  test("Register flow", testMetadata("", TestTags.SANITY), async ({ mailClient, loginPage }) => {
     const verificationCode1: string = await mailClient.GetEmailVerificationCode();
     const verificationCode: string = await mailClient.GetEmailOneTimeLoginPass();
+    // const token = await loginPage.login("second@sandbox.zazamail.link", "!Test12345!");
   });
 });
