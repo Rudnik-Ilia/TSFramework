@@ -79,25 +79,13 @@ export class LoginPage extends BasePage {
     await this.signInButton.click();
   }
 
-  @step
-  async login(email: string, password: string): Promise<string> {
-    const loginResponsePromise = this.page.waitForResponse(
-      (response) => response.url().includes(LoginPage.authApiPath) && response.request().method() === "POST",
-    );
+  async pause(): Promise<void> {
+    await this.page.pause();
+  }
 
+  @step
+  async login(email: string, password: string): Promise<void> {
     await this.fillCredentials(email, password);
     await this.submit();
-
-    const response = await loginResponsePromise;
-    if (!response.ok()) {
-      throw new Error(`Login failed with status ${response.status()}`);
-    }
-
-    const { data } = (await response.json()) as LoginResponse;
-    if (!data.otpToken) {
-      throw new Error("OTP token was not returned after login");
-    }
-
-    return data.otpToken;
   }
 }

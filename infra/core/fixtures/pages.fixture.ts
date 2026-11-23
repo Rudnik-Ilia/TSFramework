@@ -5,6 +5,7 @@ import { EmailResendPage } from "../../domain/web/pages/email-resend.page";
 import { LoginPage } from "../../domain/web/pages/login.page";
 import { SignupPage } from "../../domain/web/pages/signup.page";
 import { WelcomeTalkspace } from "../../domain/web/pages/welcome-talkspace.page";
+import { TwoFactorVerifyPage } from "../../domain/web/pages/two-factor-verify.page";
 
 interface PageFixtures {
   emailVerificationCodePage: EmailVerificationCodePage;
@@ -12,6 +13,7 @@ interface PageFixtures {
   loginPage: LoginPage;
   signupPage: SignupPage;
   welcomeTalkspace: WelcomeTalkspace;
+  twoFactorVerifyPage: TwoFactorVerifyPage;
 }
 
 export const test = base.extend<PageFixtures>({
@@ -27,12 +29,16 @@ export const test = base.extend<PageFixtures>({
     await use(new EmailResendPage(page));
   },
 
-  loginPage: async ({ baseURL, page }, use) => {
+  loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
   },
 
   signupPage: async ({ page }, use) => {
     await use(new SignupPage(page));
+  },
+
+  twoFactorVerifyPage: async ({ page }, use) => {
+    await use(new TwoFactorVerifyPage(page));
   },
 });
 

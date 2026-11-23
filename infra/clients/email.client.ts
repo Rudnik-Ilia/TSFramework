@@ -1,5 +1,7 @@
 import { type EmailPreview, MailSlurp } from "mailslurp-client";
 
+import { MatchOptionFieldEnum, MatchOptionShouldEnum, WaitForMatchingEmailsSortEnum } from "mailslurp-client";
+
 export class MailClient {
   private static apiKey = "sk_7ZSCitbRKnjPg0UQ_JX73kfqCWlZSgeVwlyHRmkeF7z87WH8cxgbSZMzEhqi5RsIweL6k5O1w4aosg3pz";
   private static mailID = "d562dcc4-1f11-4df7-8e42-4ceb42d7a157";
@@ -11,9 +13,18 @@ export class MailClient {
     this.client = new MailSlurp({ apiKey: MailClient.apiKey });
   }
 
-  private async getLastEmail(emailSubject: string): Promise<EmailPreview> {
-    const emails = await this.client.inboxController.getEmails({ inboxId: MailClient.mailID, limit: 10 });
-    const email = emails.filter(({ subject }) => subject === emailSubject).at(-1);
+  private async getLastEmail(emailSubject: string, since?: Date): Promise<EmailPreview> {
+    const [email] = await this.client.waitController.waitForMatchingEmails({
+      inboxId: MailClient.mailID,
+      count: 1,
+      unreadOnly: true,
+      sort: WaitForMatchingEmailsSortEnum.DESC,
+      timeout: 30_000,
+      since,
+      matchOptions: {
+        matches: [{ field: MatchOptionFieldEnum.SUBJECT, should: MatchOptionShouldEnum.EQUAL, value: emailSubject }],
+      },
+    });
 
     if (!email) {
       throw new Error(`The last email with ${emailSubject} was not found`);
@@ -48,8 +59,8 @@ export class MailClient {
     return this.extractCode(email.id, "td.em_defaultlink > p");
   }
 
-  async GetEmailOneTimeLoginPass(): Promise<string> {
-    const email = await this.getLastEmail("One time login password");
+  async GetEmailOneTimeLoginPass(after_time: Date): Promise<string> {
+    const email = await this.getLastEmail("One time login password", after_time);
     return this.extractCode(email.id, "td.em_richText > b");
   }
 }
