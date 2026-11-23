@@ -1,4 +1,4 @@
-import { type Email, MailSlurp } from "mailslurp-client";
+import { type EmailPreview, MailSlurp } from "mailslurp-client";
 
 export interface VerificationEmail {
   previewUrl: string;
@@ -23,6 +23,17 @@ export class MailClient {
     this.client = new MailSlurp({ apiKey: MailClient.apiKey });
   }
 
+  private async getLastEmail(emailSubject: string): Promise<EmailPreview> {
+    const emails = await this.client.inboxController.getEmails({ inboxId: MailClient.mailID, limit: 10 });
+    const email = emails.filter(({ subject }) => subject === emailSubject).at(-1);
+
+    if (!email) {
+      throw new Error(`The last email with ${emailSubject} was not found`);
+    }
+
+    return email;
+  }
+
   async GetEmailLink(): Promise<string> {
     const email = await this.client.emailController.getLatestEmailInInbox1({ inboxId: MailClient.mailID });
     const { links } = await this.client.emailController.getEmailLinks({ emailId: email.id });
@@ -34,13 +45,8 @@ export class MailClient {
     return verificationUrl;
   }
 
-  async GetEmailCode(): Promise<string> {
-    const emails = await this.client.inboxController.getEmails({ inboxId: MailClient.mailID, limit: 10 });
-    const email = emails.find(({ subject }) => subject === "Verify your email address");
-
-    if (!email) {
-      throw new Error("Verification email was not found");
-    }
+  async GetEmailVerificationCode(): Promise<string> {
+    const email = await this.getLastEmail("Verify your email address");
 
     const { lines } = await this.client.emailController.getEmailHTMLQuery({ emailId: email.id, htmlSelector: "td.em_defaultlink > p" });
     const verificationCode = lines.find((line) => /^\s*\d{6}\s*$/.test(line))?.trim();
@@ -49,5 +55,17 @@ export class MailClient {
       throw new Error("Six-digit email verification code was not found");
     }
     return verificationCode;
+  }
+
+  async GetEmailOneTimeLoginPass(): Promise<string> {
+    const email = await this.getLastEmail("One time login password");
+
+    const { lines } = await this.client.emailController.getEmailHTMLQuery({ emailId: email.id, htmlSelector: "td.em_richText > b" });
+    const oneTimeCode = lines.find((line) => /^\s*\d{6}\s*$/.test(line))?.trim();
+
+    if (!oneTimeCode) {
+      throw new Error("Six-digit one-time code was not found");
+    }
+    return oneTimeCode;
   }
 }

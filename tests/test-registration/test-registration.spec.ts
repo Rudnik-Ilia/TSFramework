@@ -13,7 +13,7 @@ const data = {
 
 test.describe("Signup", () => {
   test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ mailClient }) => {
-    const verificationCode: string = await mailClient.GetEmailCode();
-    console.log(verificationCode);
+    const verificationCode1: string = await mailClient.GetEmailVerificationCode();
+    const verificationCode: string = await mailClient.GetEmailOneTimeLoginPass();
   });
 });
