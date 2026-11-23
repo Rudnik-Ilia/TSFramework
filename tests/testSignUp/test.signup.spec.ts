@@ -37,8 +37,9 @@ for (const setData of formData) {
       // const resendRequestedAt = new Date();
       // await emailResendPage.resendEmail();
 
-      const verificationEmail = await mailClient.waitForVerificationEmail({ unreadOnly: false });
-      await verificationEmailPage.goto(verificationEmail.previewUrl);
+      const verificationLink: string = await mailClient.GetEmailLink();
+      console.log(verificationLink);
+      // await verificationEmailPage.goto(verificationEmail.previewUrl);
       //
       //       const emailVerificationCompletePage = await verificationEmailPage.clickVerifyEmail();
       //       await Validate.haveUrl(emailVerificationCompletePage.page, loginPage.getFullUrl());
