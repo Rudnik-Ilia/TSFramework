@@ -1,5 +1,4 @@
-import { waitForVerificationCode } from "../../infra/clients/mailClient";
-import { test } from "../../infra/core/fixtures/pages.fixture";
+import { test } from "../../infra/core/fixtures/mail.fixture";
 import { testMetadata, TestTags } from "../../infra/core/markers/markers-metadata";
 import { Validate } from "../../infra/core/validations/validate";
 import formData from "./test_data/data_single.json";
@@ -30,9 +29,20 @@ test.describe("Signup", () => {
 
 for (const setData of formData) {
   test.describe("Signup", () => {
-    test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ emailVerificationSentPage }) => {
-      await emailVerificationSentPage.goto(setData.email);
-      await Validate.visible(emailVerificationSentPage.getEmailAddress(setData.email));
+    test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ emailResendPage, mailClient, verificationEmailPage, loginPage }) => {
+      test.slow();
+
+      await emailResendPage.goto(setData.email);
+      await Validate.visible(emailResendPage.getEmailAddress(setData.email));
+      // const resendRequestedAt = new Date();
+      // await emailVerificationSentPage.resendEmail();
+
+      const verificationEmail = await mailClient.waitForVerificationEmail({ unreadOnly: false });
+      await verificationEmailPage.goto(verificationEmail.previewUrl);
+
+      const emailVerificationCompletePage = await verificationEmailPage.clickVerifyEmail();
+      await Validate.haveUrl(emailVerificationCompletePage.page, loginPage.getFullUrl());
+      await Validate.visible(emailVerificationCompletePage.heading);
     });
   });
 }

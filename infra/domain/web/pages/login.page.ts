@@ -28,7 +28,10 @@ export class LoginPage extends BasePage {
   readonly signUpLink: Locator;
   readonly providerSignInLink: Locator;
 
-  constructor(page: Page) {
+  constructor(
+    page: Page,
+    private readonly baseUrl: string,
+  ) {
     super(page);
     this.heading = page.getByRole("heading", { name: HEADING_LOGIN, level: 1 });
     this.emailInput = page.getByTestId(EMAIL_INPUT_LOGIN);
@@ -49,6 +52,10 @@ export class LoginPage extends BasePage {
   @step
   async gotoMainAuth(): Promise<void> {
     await this.page.goto(LoginPage.mainAuthPath);
+  }
+
+  getFullUrl(): string {
+    return new URL(LoginPage.path, this.baseUrl).toString();
   }
 
   async fillEmail(email: string): Promise<void> {

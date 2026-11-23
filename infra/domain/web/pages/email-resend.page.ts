@@ -6,14 +6,14 @@ import {
   EMAIL_VERIFICATION_ENVELOPE_IMAGE,
   EMAIL_VERIFICATION_SENT_MESSAGE,
   EMAIL_VERIFICATION_SENT_TITLE,
-} from "../locators/email-verification-sent.locators";
+} from "../locators/email-resend.locators";
 import { BasePage } from "./base.page";
 
-export class EmailVerificationSentPage extends BasePage {
+export class EmailResendPage extends BasePage {
   static readonly path = "/email-verification/sent";
 
   static pathForEmail(email: string): string {
-    return `${EmailVerificationSentPage.path}#email=${encodeURIComponent(email)}`;
+    return `${EmailResendPage.path}#email=${encodeURIComponent(email)}`;
   }
 
   readonly envelopeImage: Locator;
@@ -33,7 +33,7 @@ export class EmailVerificationSentPage extends BasePage {
 
   @step
   async goto(email?: string): Promise<void> {
-    const path = email ? EmailVerificationSentPage.pathForEmail(email) : EmailVerificationSentPage.path;
+    const path = email ? EmailResendPage.pathForEmail(email) : EmailResendPage.path;
     await this.page.goto(path);
   }
 
