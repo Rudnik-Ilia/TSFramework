@@ -9,7 +9,6 @@ test.describe("Signup", () => {
     test(`fills all account fields for ${setData.nickname} without creating an account`, Markers(TestTags.SMOKE), async ({ signupPage }) => {
       await signupPage.goto();
       await Validate.visible(signupPage.heading);
-
       await signupPage.fillAccountDetails(setData.email, setData.password, setData.nickname);
       await signupPage.selectCountry(setData.countryName, setData.countryCode);
       // await signupPage.createAccount();
