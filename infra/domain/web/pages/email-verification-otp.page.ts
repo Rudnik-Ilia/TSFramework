@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 
-import { step } from "../../../utils/step";
+import { step } from "../../../utils/step.util";
 import {
   EMAIL_VERIFICATION_CODE_INPUT_PREFIX,
   EMAIL_VERIFICATION_CONTACT_SUPPORT_LINK,
@@ -50,10 +50,7 @@ export class EmailVerificationOtpPage extends BasePage {
   async fillVerificationCode(code: string): Promise<void> {
     const digits = [...code];
 
-    if (
-      digits.length !== EmailVerificationOtpPage.codeLength ||
-      digits.some((digit) => digit < "0" || digit > "9")
-    ) {
+    if (digits.length !== EmailVerificationOtpPage.codeLength || digits.some((digit) => digit < "0" || digit > "9")) {
       throw new Error(`Verification code must contain exactly ${EmailVerificationOtpPage.codeLength} digits`);
     }
 

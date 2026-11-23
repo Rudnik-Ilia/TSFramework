@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
-import { RandomUtil } from "./infra/utils/randomUtil";
+import { RandomUtil } from "./infra/utils/random.util";
 
 const settingsFile = process.env.PW_SETTINGS ?? "playwright.settings.json";
 

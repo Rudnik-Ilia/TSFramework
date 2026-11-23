@@ -7,7 +7,6 @@ import { SignupPage } from "../../domain/web/pages/signup.page";
 import { WelcomeTalkspace } from "../../domain/web/pages/welcome-talkspace.page";
 
 interface PageFixtures {
-  emailVerificationCompletePage: EmailVerificationCompletePage;
   emailVerificationOtpPage: EmailVerificationOtpPage;
   emailResendPage: EmailResendPage;
   loginPage: LoginPage;

@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 
-import { step } from "../../../utils/step";
+import { step } from "../../../utils/step.util";
 import {
   EMAIL_VERIFICATION_CONTACT_SUPPORT_LINK,
   EMAIL_VERIFICATION_ENVELOPE_IMAGE,

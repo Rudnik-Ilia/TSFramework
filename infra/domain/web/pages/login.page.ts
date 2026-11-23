@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 
-import { step } from "../../../utils/step";
+import { step } from "../../../utils/step.util";
 import {
   EMAIL_INPUT_LOGIN,
   FORGOT_PASSWORD_LINK_LOGIN,

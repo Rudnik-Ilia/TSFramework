@@ -2,11 +2,11 @@ import process from "node:process";
 
 import { Command, CommanderError } from "commander";
 
-import { buildTestArguments } from "./playwright-arguments";
-import { spawnPlaywright } from "./process-runner";
+import { buildTestArguments } from "./playwright-arguments.cli";
+import { spawnPlaywright } from "./process-runner.cli";
 import { resolveReportDirectory } from "./report-resolver";
-import type { TestCommandMode, TestCommandOptions } from "./types";
-import { parseFileSelector, parseNonEmptyValue, parsePositiveInteger, parseRegularExpression } from "./argsValidation";
+import type { TestCommandMode, TestCommandOptions } from "./command-options.types";
+import { parseFileSelector, parseNonEmptyValue, parsePositiveInteger, parseRegularExpression } from "./cli-args.validation";
 
 export async function runCli(argumentsList: readonly string[] = process.argv): Promise<number> {
   let commandExitCode = 0;

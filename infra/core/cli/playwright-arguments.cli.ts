@@ -1,4 +1,4 @@
-import type { TestCommandMode, TestCommandOptions } from "./types";
+import type { TestCommandMode, TestCommandOptions } from "./command-options.types";
 
 const smokeTag = "@smoke";
 const regressionTag = "@regression";

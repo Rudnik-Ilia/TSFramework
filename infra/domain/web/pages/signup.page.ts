@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 
-import { step } from "../../../utils/step";
+import { step } from "../../../utils/step.util";
 import {
   CANCELLATION_POLICY_LINK_SIGNUP,
   COUNTRY_DROPDOWN_INPUT_SIGNUP,

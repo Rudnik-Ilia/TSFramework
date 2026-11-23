@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 
-import { Validate } from "../../../core/validations/validate";
+import { Validate } from "../../../core/validations/validate.validation";
 import { BasePage } from "./base.page";
 import { MAIL_VERIFYED, WELCOME_MESSAGE } from "../locators/welcome-talkspace.locators";
 
