@@ -12,7 +12,7 @@ import {
 } from "../locators/email-verification-otp.locators";
 import { BasePage } from "./base.page";
 
-export class EmailVerificationOtpPage extends BasePage {
+export class EmailVerificationCodePage extends BasePage {
   static readonly path = "/email-verification/otp";
   static readonly codeLength = 6;
 
@@ -29,7 +29,7 @@ export class EmailVerificationOtpPage extends BasePage {
     this.envelopeImage = page.getByRole("img", { name: EMAIL_VERIFICATION_OTP_ENVELOPE_IMAGE });
     this.title = page.getByText(EMAIL_VERIFICATION_OTP_TITLE, { exact: true });
     this.sentCodeMessage = page.getByText(EMAIL_VERIFICATION_OTP_MESSAGE, { exact: false });
-    this.verificationCodeInputs = Array.from({ length: EmailVerificationOtpPage.codeLength }, (_, index) =>
+    this.verificationCodeInputs = Array.from({ length: EmailVerificationCodePage.codeLength }, (_, index) =>
       page.getByTestId(`${EMAIL_VERIFICATION_CODE_INPUT_PREFIX}${index}`),
     );
     this.resendCodeButton = page.getByTestId(EMAIL_VERIFICATION_RESEND_CODE_BUTTON);
@@ -39,7 +39,7 @@ export class EmailVerificationOtpPage extends BasePage {
 
   @step
   async goto(verificationUrl?: string): Promise<void> {
-    await this.page.goto(verificationUrl ?? EmailVerificationOtpPage.path);
+    await this.page.goto(verificationUrl ?? EmailVerificationCodePage.path);
   }
 
   emailAddress(email: string): Locator {
@@ -50,8 +50,8 @@ export class EmailVerificationOtpPage extends BasePage {
   async fillVerificationCode(code: string): Promise<void> {
     const digits = [...code];
 
-    if (digits.length !== EmailVerificationOtpPage.codeLength || digits.some((digit) => digit < "0" || digit > "9")) {
-      throw new Error(`Verification code must contain exactly ${EmailVerificationOtpPage.codeLength} digits`);
+    if (digits.length !== EmailVerificationCodePage.codeLength || digits.some((digit) => digit < "0" || digit > "9")) {
+      throw new Error(`Verification code must contain exactly ${EmailVerificationCodePage.codeLength} digits`);
     }
 
     for (const [index, digit] of digits.entries()) {

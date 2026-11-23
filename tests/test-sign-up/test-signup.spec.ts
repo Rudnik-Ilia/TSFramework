@@ -1,4 +1,4 @@
-import { test } from "../../infra/core/fixtures/mail.fixture";
+import { test } from "../../infra/core/fixtures/email.fixture";
 import { testMetadata, TestTags } from "../../infra/core/markers/markers-metadata";
 import { Validate } from "../../infra/core/validations/validate.validation";
 import { WelcomeTalkspace } from "../../infra/domain/web/pages/welcome-talkspace.page";
@@ -30,7 +30,7 @@ test.describe("Signup", () => {
 
 for (const setData of formData) {
   test.describe("Signup", () => {
-    test(`Register flow`, testMetadata("", TestTags.SANITY), async ({ emailResendPage, mailClient, welcomeTalkspace, loginPage }) => {
+    test(`Register flow`, testMetadata("", TestTags.SMOKE), async ({ emailResendPage, mailClient, welcomeTalkspace, loginPage }) => {
       await emailResendPage.goto(setData.email);
       await Validate.visible(emailResendPage.getEmailAddress(setData.email));
       // await emailResendPage.resendEmail();
