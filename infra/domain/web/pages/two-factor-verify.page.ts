@@ -48,7 +48,7 @@ export class TwoFactorVerifyPage {
     await this.codeInput6.fill(digit);
   }
 
-  async submit(): Promise<void> {
+  async continue(): Promise<void> {
     await this.continueButton.click();
   }
 }

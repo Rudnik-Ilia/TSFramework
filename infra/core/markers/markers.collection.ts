@@ -6,12 +6,8 @@ export const TestTags = {
 
 type TestTag = (typeof TestTags)[keyof typeof TestTags];
 
-export function testMetadata(description: string, ...tags: TestTag[]) {
+export function Markers(...tags: TestTag[]) {
   return {
     tag: tags,
-    annotation: {
-      type: "description",
-      description,
-    },
   };
 }
