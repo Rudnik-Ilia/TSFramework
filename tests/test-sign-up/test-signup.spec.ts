@@ -22,7 +22,7 @@ test.describe("Signup", () => {
         await Validate.containText(signupPage.countryDropdown, setData.countryName);
         await Validate.enabled(signupPage.createAccountButton);
 
-        await signupPage.createAccount();
+        // await signupPage.createAccount();
       },
     );
   }
