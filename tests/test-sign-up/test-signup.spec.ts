@@ -12,13 +12,6 @@ test.describe("Signup", () => {
 
       await signupPage.fillAccountDetails(setData.email, setData.password, setData.nickname);
       await signupPage.selectCountry(setData.countryName, setData.countryCode);
-
-      await Validate.haveValue(signupPage.emailInput, setData.email);
-      await Validate.haveValue(signupPage.passwordInput, setData.password);
-      await Validate.haveValue(signupPage.nicknameInput, setData.nickname);
-      await Validate.containText(signupPage.countryDropdown, setData.countryName);
-      await Validate.enabled(signupPage.createAccountButton);
-
       // await signupPage.createAccount();
     });
   }

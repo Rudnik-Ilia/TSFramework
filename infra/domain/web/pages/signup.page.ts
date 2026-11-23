@@ -23,6 +23,7 @@ import {
   TERMS_OF_USE_LINK_SIGNUP,
 } from "../locators/login.sign.locators";
 import { BasePage } from "./base.page";
+import { Validate } from "../../../core/validations/validate.validation";
 
 export class SignupPage extends BasePage {
   static readonly path = "/signup/autoswitchpt";
@@ -72,6 +73,8 @@ export class SignupPage extends BasePage {
   }
 
   async fillEmail(email: string): Promise<void> {
+    Validate.enabled(this.emailInput);
+
     await this.emailInput.fill(email);
   }
 
