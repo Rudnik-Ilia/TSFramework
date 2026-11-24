@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 
-import { step } from "../../../utils/step.util";
+import { step } from "../../../../utils/step.util";
 import {
   EMAIL_VERIFICATION_CONTACT_SUPPORT_LINK,
   EMAIL_VERIFICATION_OTP_ENVELOPE_IMAGE,
@@ -8,8 +8,8 @@ import {
   EMAIL_VERIFICATION_OTP_TITLE,
   EMAIL_VERIFICATION_RESEND_CODE_BUTTON,
   EMAIL_VERIFICATION_UPDATE_EMAIL_BUTTON,
-} from "../locators/email-verification-otp.locators";
-import { BasePage } from "./base.page";
+} from "../../locators/email-verification-otp.locators";
+import { BasePage } from "../base.page";
 
 export class EmailVerificationCodePage extends BasePage {
   static readonly path = "/email-verification/otp";

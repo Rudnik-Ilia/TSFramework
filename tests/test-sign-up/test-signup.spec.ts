@@ -1,7 +1,7 @@
 import { test } from "../../infra/core/fixtures/email.fixture";
 import { Markers, TestTags } from "../../infra/utils/markers.util";
 import { Validate } from "../../infra/core/validations/validate.validation";
-import { WelcomeTalkspace } from "../../infra/domain/web/pages/welcome-talkspace.page";
+import { WelcomeTalkspacePage } from "../../infra/domain/web/pages/log-in/welcome-talkspace.page";
 import formData from "./test-data/form-single.data.json";
 
 test.describe("Signup", () => {
@@ -18,14 +18,14 @@ test.describe("Signup", () => {
 
 for (const setData of formData) {
   test.describe("Signup", () => {
-    test(`Register flow`, Markers(TestTags.SMOKE), async ({ emailResendPage, mailClient, welcomeTalkspace, loginPage }) => {
+    test(`Register flow`, Markers(TestTags.SMOKE), async ({ emailResendPage, mailClient, welcomeTalkspacePage, loginPage }) => {
       await emailResendPage.goto(setData.email);
       await Validate.visible(emailResendPage.getEmailAddress(setData.email));
       // await emailResendPage.resendEmail();
 
       const verificationLink: string = await mailClient.GetEmailLink();
-      await welcomeTalkspace.goto(verificationLink);
-      await welcomeTalkspace.verifySucces();
+      await welcomeTalkspacePage.goto(verificationLink);
+      await welcomeTalkspacePage.verifySucces();
     });
   });
 }

@@ -1,10 +1,10 @@
 import type { Locator, Page } from "@playwright/test";
 
-import { Validate } from "../../../core/validations/validate.validation";
-import { BasePage } from "./base.page";
-import { MAIL_VERIFYED, WELCOME_MESSAGE } from "../locators/welcome-talkspace.locators";
+import { Validate } from "../../../../core/validations/validate.validation";
+import { BasePage } from "../base.page";
+import { MAIL_VERIFYED, WELCOME_MESSAGE } from "../../locators/welcome-talkspace.locators";
 
-export class WelcomeTalkspace extends BasePage {
+export class WelcomeTalkspacePage extends BasePage {
   readonly successAlert: Locator;
   readonly welcomeMessage: Locator;
 

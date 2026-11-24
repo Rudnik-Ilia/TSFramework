@@ -1,11 +1,14 @@
 import { test } from "../../infra/core/fixtures/email.fixture";
 import { Validate } from "../../infra/core/validations/validate.validation";
+import { MeetYourProviderPage } from "../../infra/domain/web/pages/log-in/meet-your-provider.page";
+import { WelcomeTalkspacePage } from "../../infra/domain/web/pages/log-in/welcome-talkspace.page";
 import { Markers, TestTags } from "../../infra/utils/markers.util";
 import formData from "./test-data/form.data.json";
 
 test.describe("Signup from scratch. New user. New email.", () => {
-  test("Test sign up.", Markers(TestTags.SANITY), async ({ emailVerificationCodePage, signupPage, mailClient }) => {
+  test("Test sign up.", Markers(TestTags.SANITY), async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage }) => {
     const since = new Date();
+    await mailClient.createNewInbox(formData.email);
     await signupPage.goto();
     await Validate.visible(signupPage.heading);
     await signupPage.fillAccountDetails(formData.email, formData.password, formData.nickname);
@@ -26,6 +29,9 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await emailVerificationCodePage.fillCodeInput5(verificationCode.charAt(4));
     await emailVerificationCodePage.fillCodeInput6(verificationCode.charAt(5));
 
-    await emailVerificationCodePage.pause();
+    await welcomeTalkspacePage.verifySucces();
+    await homePage.waitForRedirect();
+    await Validate.visible(homePage.homeNavigation);
+    await homePage.pause();
   });
 });

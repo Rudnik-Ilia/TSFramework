@@ -2,10 +2,10 @@ import { test } from "../../infra/core/fixtures/email.fixture";
 import { Markers, TestTags } from "../../infra/utils/markers.util";
 
 test.describe("Logginng with existing login + password.", () => {
-  test("Log in test.", Markers(), async ({ mailClient, loginPage, twoFactorVerifyPage }) => {
+  test("Log in test.", Markers(TestTags.REGRESSION), async ({ mailClient, loginPage, twoFactorVerifyPage }) => {
     const since = new Date();
     await loginPage.goto();
-    await loginPage.login("second@sandbox.zazamail.link", "!Test12345!");
+    await loginPage.login("ten@sandbox.zazamail.link", "!Test12345!");
     await twoFactorVerifyPage.waitForRedirect();
     const verificationCode: string = await mailClient.GetEmailOneTimeLoginPass("One time login password", since);
     await twoFactorVerifyPage.fillCodeInput1(verificationCode.charAt(0));

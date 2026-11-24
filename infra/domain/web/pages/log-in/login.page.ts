@@ -1,6 +1,6 @@
 import type { Locator, Page } from "@playwright/test";
 
-import { step } from "../../../utils/step.util";
+import { step } from "../../../../utils/step.util";
 import {
   EMAIL_INPUT_LOGIN,
   FORGOT_PASSWORD_LINK_LOGIN,
@@ -11,8 +11,8 @@ import {
   SIGN_IN_BUTTON_LOGIN,
   SIGN_UP_LINK_LOGIN,
   SSO_SIGN_IN_LINK_LOGIN,
-} from "../locators/login.sign.locators";
-import { BasePage } from "./base.page";
+} from "../../locators/login.sign.locators";
+import { BasePage } from "../base.page";
 
 interface LoginResponse {
   data: {

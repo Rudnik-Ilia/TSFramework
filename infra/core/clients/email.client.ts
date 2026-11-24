@@ -4,7 +4,8 @@ import { MatchOptionFieldEnum, MatchOptionShouldEnum, WaitForMatchingEmailsSortE
 
 export class MailClient {
   private static apiKey = "sk_7ZSCitbRKnjPg0UQ_JX73kfqCWlZSgeVwlyHRmkeF7z87WH8cxgbSZMzEhqi5RsIweL6k5O1w4aosg3pz";
-  private static mailID = "d610b7c2-38ca-4fa9-83c8-829cd3547b76";
+  inboxId = "c62bc08b-78ea-4f38-98ee-e3b499250bb9";
+  emailAddress?: string;
   private static readonly verificationPath = "https://app.canary.talkspace.com/email-verification#verificationCode=";
 
   private readonly client: MailSlurp;
@@ -13,9 +14,20 @@ export class MailClient {
     this.client = new MailSlurp({ apiKey: MailClient.apiKey });
   }
 
+  async createNewInbox(emailAddress?: string): Promise<string> {
+    const inbox = await this.client.inboxController.createInbox({ emailAddress });
+    if (!inbox.emailAddress || !inbox.id) {
+      throw new Error(`MailSlurp did not return an inbox ID and email address for ${emailAddress}`);
+    }
+
+    this.inboxId = inbox.id;
+    this.emailAddress = inbox.emailAddress;
+    return inbox.emailAddress;
+  }
+
   private async getLastEmail(emailSubject: string, since?: Date): Promise<EmailPreview> {
     const [email] = await this.client.waitController.waitForMatchingEmails({
-      inboxId: MailClient.mailID,
+      inboxId: this.inboxId,
       count: 1,
       unreadOnly: true,
       sort: WaitForMatchingEmailsSortEnum.DESC,
@@ -44,7 +56,7 @@ export class MailClient {
   }
 
   async GetEmailLink(): Promise<string> {
-    const email = await this.client.emailController.getLatestEmailInInbox1({ inboxId: MailClient.mailID });
+    const email = await this.client.emailController.getLatestEmailInInbox1({ inboxId: this.inboxId });
     const { links } = await this.client.emailController.getEmailLinks({ emailId: email.id });
     const verificationUrl = links.find((link) => link.includes(MailClient.verificationPath));
 
