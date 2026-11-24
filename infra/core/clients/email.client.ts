@@ -28,12 +28,15 @@ export class MailClient {
     this.emailAddress = inbox.emailAddress;
   }
 
-  getInboxInfo(): InboxData {
+  get inboxInfo(): InboxData {
     if (!this.emailAddress) {
       throw new Error("Inbox email address is not set. Call createNewInbox() first.");
     }
 
-    return { id: this.inboxId, emailAddress: this.emailAddress };
+    return {
+      id: this.inboxId,
+      emailAddress: this.emailAddress,
+    };
   }
 
   private async getLastEmail(emailSubject: string, since?: Date): Promise<EmailPreview> {

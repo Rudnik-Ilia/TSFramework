@@ -14,7 +14,7 @@ test.describe("Signup from scratch. New user. New email.", () => {
   test("Test sign up.", Markers(), async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage }) => {
     const since = new Date();
     await mailClient.createNewInbox(formData.email);
-    inbox = mailClient.getInboxInfo();
+    inbox = mailClient.inboxInfo;
     await Attacher.attachInbox(inbox);
 
     await signupPage.goto();
@@ -40,10 +40,10 @@ test.describe("Signup from scratch. New user. New email.", () => {
   });
 
   test("", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage }) => {
-    inbox = mailClient.getInboxInfo();
+    const since = new Date();
+    inbox = mailClient.inboxInfo;
     await Attacher.attachInbox(inbox);
 
-    const since = new Date();
     await loginPage.goto();
     await loginPage.login(inbox.emailAddress, formData.password);
     await twoFactorVerifyPage.waitForRedirect();
