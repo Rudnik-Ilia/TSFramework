@@ -3,27 +3,32 @@ import { Markers, TestTags } from "../../infra/utils/markers.util";
 import { Validate } from "../../infra/core/validations/validate.validation";
 import formDataAll from "./test-data/form-for-all.data.json";
 import formDataUS from "./test-data/form-for-us.data.json";
+import formPasswords from "./test-data/form-passwords.data.json";
 
 test.describe("Positive signup scenarios with valid data and no account creation.Strong password.", () => {
   for (const setData of formDataAll) {
-    test(`Create Account can be clicked after selecting ${setData.countryName}`, Markers(TestTags.REGRESSION), async ({ signupPage }) => {
-      await signupPage.goto();
+    test(
+      `Create Account can be clicked after selecting ${setData.countryName} (${setData.email})`,
+      Markers(TestTags.REGRESSION),
+      async ({ signupPage }) => {
+        await signupPage.goto();
 
-      await Validate.visibleAll([
-        signupPage.heading,
-        signupPage.emailInput,
-        signupPage.passwordInput,
-        signupPage.nicknameInput,
-        signupPage.countryDropdown,
-        signupPage.createAccountButton,
-      ]);
-      await signupPage.fillAccountDetails(setData.email, setData.password, setData.nickname);
-      await signupPage.selectCountry(setData.countryName, setData.countryCode);
+        await Validate.visibleAll([
+          signupPage.heading,
+          signupPage.emailInput,
+          signupPage.passwordInput,
+          signupPage.nicknameInput,
+          signupPage.countryDropdown,
+          signupPage.createAccountButton,
+        ]);
+        await signupPage.fillAccountDetails(setData.email, setData.password, setData.nickname);
+        await signupPage.selectCountry(setData.countryName, setData.countryCode);
 
-      await Validate.hidden(signupPage.passwordError);
-      await Validate.visible(signupPage.strongPasswordIndicator);
-      await Validate.clickable(signupPage.createAccountButton);
-    });
+        await Validate.hidden(signupPage.passwordError);
+        await Validate.visible(signupPage.strongPasswordIndicator);
+        await Validate.clickable(signupPage.createAccountButton);
+      },
+    );
   }
 
   for (const setData of formDataUS) {
@@ -51,5 +56,15 @@ test.describe("Positive signup scenarios with valid data and no account creation
         await Validate.clickable(signupPage.createAccountButton);
       },
     );
+  }
+});
+
+test.describe("Password strength indicator on the signup form", () => {
+  for (const { password, expectedStrength } of formPasswords) {
+    test(`displays the "${expectedStrength}" password strength rating`, Markers(TestTags.REGRESSION), async ({ signupPage }) => {
+      await signupPage.goto();
+      await signupPage.fillPassword(password);
+      await Validate.visible(signupPage.passwordStrength(expectedStrength));
+    });
   }
 });

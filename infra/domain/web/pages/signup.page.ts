@@ -81,6 +81,10 @@ export class SignupPage extends BasePage {
     await this.emailInput.fill(email);
   }
 
+  passwordStrength(expectedStrength: string): Locator {
+    return this.page.getByText(expectedStrength, { exact: true });
+  }
+
   async fillPassword(password: string): Promise<void> {
     Validate.enabled(this.passwordInput);
     await this.passwordInput.fill(password);
