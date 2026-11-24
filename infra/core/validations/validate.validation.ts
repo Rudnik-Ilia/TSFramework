@@ -1,6 +1,10 @@
 import { expect, type Locator, type Page } from "@playwright/test";
 
 export class Validate {
+  static async clickable(locator: Locator): Promise<void> {
+    await locator.click({ trial: true });
+  }
+
   static async visibleAll(locators: readonly Locator[]): Promise<void> {
     for (const locator of locators) {
       await expect(locator).toBeVisible();

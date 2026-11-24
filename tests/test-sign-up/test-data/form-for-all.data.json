@@ -1,72 +1,51 @@
 [
   {
-    "email": "playwright.signup.01@example.com",
-    "password": "DifferentPlaywright101!",
-    "nickname": "Playwright User 01",
+    "email": "alex!morgan+signup@gmail.example",
+    "password": "Copper!Trail58Moon",
+    "nickname": "Alex Morgan",
     "countryName": "United States",
     "countryCode": "US"
   },
   {
-    "email": "playwright.signup.02@example.com",
-    "password": "DifferentPlaywright102!",
-    "nickname": "Playwright User 02",
+    "email": "sam%rivera@outlook.example",
+    "password": "Mango#Beacon73Sky",
+    "nickname": "Sam Rivera",
     "countryName": "Canada",
     "countryCode": "CA"
   },
   {
-    "email": "playwright.signup.03@example.com",
-    "password": "DifferentPlaywright103!",
-    "nickname": "Playwright User 03",
+    "email": "jordan-lee@yahoomail.example",
+    "password": "Quartz$Harbor26Leaf",
+    "nickname": "Jordan Lee",
     "countryName": "Australia",
     "countryCode": "AU"
   },
   {
-    "email": "playwright.signup.04@example.com",
-    "password": "DifferentPlaywright104!",
-    "nickname": "Playwright User 04",
+    "email": "Taylor89@icloud.example",
+    "password": "Cedar%Rocket49Wind",
+    "nickname": "Taylor Quinn",
     "countryName": "United Kingdom",
     "countryCode": "GB"
   },
   {
-    "email": "playwright.signup.05@example.com",
-    "password": "DifferentPlaywright105!",
-    "nickname": "Playwright User 05",
+    "email": "casey.braun@protonmail.example",
+    "password": "Violet&Comet81Hill",
+    "nickname": "Casey Braun",
     "countryName": "Germany",
     "countryCode": "DE"
   },
   {
-    "email": "playwright.signup.06@example.com",
-    "password": "DifferentPlaywright106!",
-    "nickname": "Playwright User 06",
+    "email": "morgan_dubois@mail.example.org",
+    "password": "Lantern*Ocean64Pine",
+    "nickname": "Morgan Dubois",
     "countryName": "France",
     "countryCode": "FR"
   },
   {
-    "email": "playwright.signup.07@example.com",
-    "password": "DifferentPlaywright107!",
-    "nickname": "Playwright User 07",
-    "countryName": "Brazil",
-    "countryCode": "BR"
-  },
-  {
-    "email": "playwright.signup.08@example.com",
-    "password": "DifferentPlaywright108!",
-    "nickname": "Playwright User 08",
-    "countryName": "India",
-    "countryCode": "IN"
-  },
-  {
-    "email": "playwright.signup.09@example.com",
-    "password": "DifferentPlaywright109!",
-    "nickname": "Playwright User 09",
-    "countryName": "Mexico",
-    "countryCode": "MX"
-  },
-  {
-    "email": "playwright.signup.10@example.com",
-    "password": "DifferentPlaywright110!",
-    "nickname": "Playwright User 10",
-    "countryName": "Japan",
-    "countryCode": "JP"
+    "email": "morgan=dubois@mail.example.org",
+    "password": "Lantern*Oceavewkvn64Pine",
+    "nickname": "Morgan Dubois",
+    "countryName": "France",
+    "countryCode": "FR"
   }
 ]

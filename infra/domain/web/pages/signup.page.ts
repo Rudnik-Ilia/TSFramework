@@ -54,7 +54,7 @@ export class SignupPage extends BasePage {
     this.emailInput = page.getByTestId(EMAIL_INPUT_SIGNUP);
     this.passwordInput = page.getByTestId(PASSWORD_INPUT_SIGNUP);
     this.passwordError = page.getByTestId("createAccountPasswordInput-error");
-    this.strongPasswordIndicator = page.getByText("Strong", { exact: true });
+    this.strongPasswordIndicator = page.getByText("Very strong", { exact: true });
     this.showPasswordButton = page.getByRole("button", { name: SHOW_PASSWORD_BUTTON_SIGNUP });
     this.nicknameInput = page.getByTestId(NICKNAME_INPUT_SIGNUP);
     this.countryDropdown = page.getByTestId(COUNTRY_DROPDOWN_SIGNUP);

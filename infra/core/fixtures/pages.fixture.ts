@@ -7,6 +7,9 @@ import { SignupPage } from "../../domain/web/pages/signup.page";
 import { WelcomeTalkspacePage } from "../../domain/web/pages/log-in/welcome-talkspace.page";
 import { TwoFactorVerifyPage } from "../../domain/web/pages/two-factor-verify.page";
 import { HomePage } from "../../domain/web/pages/log-in/home.page";
+import { MeetYourProviderPage } from "../../domain/web/pages/log-in/meet-your-provider.page";
+import { MentalHealthIntakePage } from "../../domain/web/pages/log-in/mental-health-intake.page";
+import { MentalHealthIntakeGenderPage } from "../../domain/web/pages/log-in/mental-health-intake-gender.page";
 
 interface PageFixtures {
   emailVerificationCodePage: EmailVerificationCodePage;
@@ -16,11 +19,25 @@ interface PageFixtures {
   welcomeTalkspacePage: WelcomeTalkspacePage;
   twoFactorVerifyPage: TwoFactorVerifyPage;
   homePage: HomePage;
+  meetYourProviderPage: MeetYourProviderPage;
+  mentalHealthIntakePage: MentalHealthIntakePage;
+  mentalHealthIntakeGenderPage: MentalHealthIntakeGenderPage;
 }
 
 export const test = base.extend<PageFixtures>({
   welcomeTalkspacePage: async ({ page }, use) => {
     await use(new WelcomeTalkspacePage(page));
+  },
+  mentalHealthIntakeGenderPage: async ({ page }, use) => {
+    await use(new MentalHealthIntakeGenderPage(page));
+  },
+
+  meetYourProviderPage: async ({ page }, use) => {
+    await use(new MeetYourProviderPage(page));
+  },
+
+  mentalHealthIntakePage: async ({ page }, use) => {
+    await use(new MentalHealthIntakePage(page));
   },
 
   emailVerificationCodePage: async ({ page }, use) => {
