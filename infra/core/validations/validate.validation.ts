@@ -34,6 +34,10 @@ export class Validate {
     await expect(locator).toBeEnabled();
   }
 
+  static async haveAttribute(locator: Locator, name: string, expectedValue: string | RegExp): Promise<void> {
+    await expect(locator).toHaveAttribute(name, expectedValue);
+  }
+
   static async haveUrl(page: Page, expectedUrl: string | RegExp): Promise<void> {
     await expect(page).toHaveURL(expectedUrl);
   }

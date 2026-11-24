@@ -1,0 +1,16 @@
+{
+  "validDetails": {
+    "email": "signup-negative@example.com",
+    "password": "Lantern*Ocean64Pine",
+    "nickname": "Morgan Dubois",
+    "countryName": "Canada",
+    "countryCode": "CA"
+  },
+  "invalidEmails": [
+    { "description": "an address without @", "email": "signup-negative.example.com" },
+    { "description": "an address with two @ symbols", "email": "signup@@example.com" },
+    { "description": "an address with a space before @", "email": "signup qa@example.com" },
+    { "description": "an address without a domain", "email": "signup@" }
+  ],
+  "missingRequiredFields": ["email", "password", "nickname"]
+}
