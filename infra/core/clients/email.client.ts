@@ -2,6 +2,10 @@ import { type EmailPreview, MailSlurp } from "mailslurp-client";
 
 import { MatchOptionFieldEnum, MatchOptionShouldEnum, WaitForMatchingEmailsSortEnum } from "mailslurp-client";
 
+import type { InboxData } from "./contracts/inbox-id-name.contract";
+
+export type { InboxData };
+
 export class MailClient {
   private static apiKey = "sk_7ZSCitbRKnjPg0UQ_JX73kfqCWlZSgeVwlyHRmkeF7z87WH8cxgbSZMzEhqi5RsIweL6k5O1w4aosg3pz";
   inboxId = "c62bc08b-78ea-4f38-98ee-e3b499250bb9";
@@ -14,7 +18,7 @@ export class MailClient {
     this.client = new MailSlurp({ apiKey: MailClient.apiKey });
   }
 
-  async createNewInbox(emailAddress?: string): Promise<string> {
+  async createNewInbox(emailAddress?: string): Promise<void> {
     const inbox = await this.client.inboxController.createInbox({ emailAddress });
     if (!inbox.emailAddress || !inbox.id) {
       throw new Error(`MailSlurp did not return an inbox ID and email address for ${emailAddress}`);
@@ -22,7 +26,14 @@ export class MailClient {
 
     this.inboxId = inbox.id;
     this.emailAddress = inbox.emailAddress;
-    return inbox.emailAddress;
+  }
+
+  getInboxInfo(): InboxData {
+    if (!this.emailAddress) {
+      throw new Error("Inbox email address is not set. Call createNewInbox() first.");
+    }
+
+    return { id: this.inboxId, emailAddress: this.emailAddress };
   }
 
   private async getLastEmail(emailSubject: string, since?: Date): Promise<EmailPreview> {

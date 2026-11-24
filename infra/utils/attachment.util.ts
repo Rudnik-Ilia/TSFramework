@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
 
-export class TestAttachments {
+export class Attacher {
   static async log(message: string): Promise<void> {
     await test.info().attach("log", { body: message, contentType: "text/plain" });
   }
@@ -11,4 +11,10 @@ export class TestAttachments {
       contentType: "application/json",
     });
   }
+
+  static async attachInbox({ id, emailAddress }: { id: string; emailAddress: string }): Promise<void> {
+    await this.attachJson("MailSlurp inbox", { id, emailAddress });
+  }
 }
+
+export { Attacher as TestAttachments };

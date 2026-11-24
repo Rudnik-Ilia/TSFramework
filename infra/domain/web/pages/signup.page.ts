@@ -27,6 +27,7 @@ import { Validate } from "../../../core/validations/validate.validation";
 
 export class SignupPage extends BasePage {
   static readonly path = "/signup/autoswitchpt";
+  readonly path = SignupPage.path;
 
   readonly heading: Locator;
   readonly emailInput: Locator;
