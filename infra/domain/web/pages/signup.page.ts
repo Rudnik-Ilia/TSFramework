@@ -1,4 +1,4 @@
-import type { Locator, Page } from "@playwright/test";
+import { expect, type Locator, type Page } from "@playwright/test";
 
 import { step } from "../../../utils/step.util";
 import {
@@ -31,6 +31,8 @@ export class SignupPage extends BasePage {
   readonly heading: Locator;
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
+  readonly passwordError: Locator;
+  readonly strongPasswordIndicator: Locator;
   readonly showPasswordButton: Locator;
   readonly nicknameInput: Locator;
   readonly countryDropdown: Locator;
@@ -51,6 +53,8 @@ export class SignupPage extends BasePage {
     this.heading = page.getByRole("heading", { name: HEADING_SIGNUP, level: 1 });
     this.emailInput = page.getByTestId(EMAIL_INPUT_SIGNUP);
     this.passwordInput = page.getByTestId(PASSWORD_INPUT_SIGNUP);
+    this.passwordError = page.getByTestId("createAccountPasswordInput-error");
+    this.strongPasswordIndicator = page.getByText("Strong", { exact: true });
     this.showPasswordButton = page.getByRole("button", { name: SHOW_PASSWORD_BUTTON_SIGNUP });
     this.nicknameInput = page.getByTestId(NICKNAME_INPUT_SIGNUP);
     this.countryDropdown = page.getByTestId(COUNTRY_DROPDOWN_SIGNUP);
@@ -74,7 +78,6 @@ export class SignupPage extends BasePage {
 
   async fillEmail(email: string): Promise<void> {
     Validate.enabled(this.emailInput);
-
     await this.emailInput.fill(email);
   }
 
@@ -83,9 +86,29 @@ export class SignupPage extends BasePage {
     await this.passwordInput.fill(password);
   }
 
+  async InvalidEmailFormat(): Promise<void> {
+    await expect
+      .poll(() =>
+        this.emailInput.evaluate((input) => input instanceof HTMLInputElement && input.validity.typeMismatch && input.validationMessage.length > 0),
+      )
+      .toBe(true);
+  }
+
   async fillNickname(nickname: string): Promise<void> {
     Validate.enabled(this.nicknameInput);
     await this.nicknameInput.fill(nickname);
+  }
+
+  async PasswordError(): Promise<void> {
+    await Validate.visible(this.passwordError);
+  }
+
+  async NOPasswordError(): Promise<void> {
+    await Validate.hidden(this.passwordError);
+  }
+
+  async StrongPassword(): Promise<void> {
+    await Validate.visible(this.strongPasswordIndicator);
   }
 
   @step

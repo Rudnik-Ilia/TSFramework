@@ -55,6 +55,10 @@ export class EmailVerificationCodePage extends BasePage {
     return this.sentCodeMessage.getByText(email, { exact: true });
   }
 
+  async waitForRedirect(): Promise<void> {
+    await this.page.waitForURL((url) => url.pathname === EmailVerificationCodePage.path);
+  }
+
   async fillCodeInput1(digit: string): Promise<void> {
     await this.codeInput1.fill(digit);
   }

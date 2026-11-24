@@ -7,7 +7,7 @@ test.describe("Logginng with existing login + password.", () => {
     await loginPage.goto();
     await loginPage.login("second@sandbox.zazamail.link", "!Test12345!");
     await twoFactorVerifyPage.waitForRedirect();
-    const verificationCode: string = await mailClient.GetEmailOneTimeLoginPass(since);
+    const verificationCode: string = await mailClient.GetEmailOneTimeLoginPass("One time login password", since);
     await twoFactorVerifyPage.fillCodeInput1(verificationCode.charAt(0));
     await twoFactorVerifyPage.fillCodeInput2(verificationCode.charAt(1));
     await twoFactorVerifyPage.fillCodeInput3(verificationCode.charAt(2));

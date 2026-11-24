@@ -29,16 +29,3 @@ for (const setData of formData) {
     });
   });
 }
-
-test.describe("Signup", () => {
-  test("Test", Markers(TestTags.SANITY), async ({ emailVerificationCodePage }) => {
-    await emailVerificationCodePage.goto();
-    await emailVerificationCodePage.fillCodeInput1("1");
-    await emailVerificationCodePage.fillCodeInput2("1");
-    await emailVerificationCodePage.fillCodeInput3("1");
-    await emailVerificationCodePage.fillCodeInput4("1");
-    await emailVerificationCodePage.fillCodeInput5("1");
-    await emailVerificationCodePage.fillCodeInput6("1");
-    await emailVerificationCodePage.pause();
-  });
-});

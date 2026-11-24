@@ -9,6 +9,10 @@ export class Validate {
   static async visible(locator: Locator): Promise<void> {
     await expect(locator).toBeVisible();
   }
+
+  static async hidden(locator: Locator): Promise<void> {
+    await expect(locator).toBeHidden();
+  }
   static async haveValueAll(locators: readonly Locator[]): Promise<void> {
     for (const locator of locators) {
       await expect(locator).toBeVisible();

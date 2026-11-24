@@ -4,7 +4,7 @@ import { MatchOptionFieldEnum, MatchOptionShouldEnum, WaitForMatchingEmailsSortE
 
 export class MailClient {
   private static apiKey = "sk_7ZSCitbRKnjPg0UQ_JX73kfqCWlZSgeVwlyHRmkeF7z87WH8cxgbSZMzEhqi5RsIweL6k5O1w4aosg3pz";
-  private static mailID = "d562dcc4-1f11-4df7-8e42-4ceb42d7a157";
+  private static mailID = "d610b7c2-38ca-4fa9-83c8-829cd3547b76";
   private static readonly verificationPath = "https://app.canary.talkspace.com/email-verification#verificationCode=";
 
   private readonly client: MailSlurp;
@@ -54,13 +54,13 @@ export class MailClient {
     return verificationUrl;
   }
 
-  async GetEmailVerificationCode(): Promise<string> {
-    const email = await this.getLastEmail("Verify your email address");
+  async GetEmailVerificationCode(email_subject: string, after_time: Date): Promise<string> {
+    const email = await this.getLastEmail(email_subject, after_time);
     return this.extractCode(email.id, "td.em_defaultlink > p");
   }
 
-  async GetEmailOneTimeLoginPass(after_time: Date): Promise<string> {
-    const email = await this.getLastEmail("One time login password", after_time);
+  async GetEmailOneTimeLoginPass(email_subject: string, after_time: Date): Promise<string> {
+    const email = await this.getLastEmail(email_subject, after_time);
     return this.extractCode(email.id, "td.em_richText > b");
   }
 }
