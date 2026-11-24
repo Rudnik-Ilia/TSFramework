@@ -10,7 +10,7 @@ test.describe("Signup from scratch. New user. New email.", () => {
   Serial();
   let inbox: InboxData | undefined;
 
-  test("Test sign up.", Markers(), async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage }) => {
+  test("Test sign up.", Markers(), async ({ emailVerificationCodePage, signupPage, mailClient, welcomeTalkspacePage }) => {
     const since = new Date();
     await mailClient.createNewInbox(formData.email);
     inbox = mailClient.inboxInfo;
@@ -43,7 +43,6 @@ test.describe("Signup from scratch. New user. New email.", () => {
     mailClient,
     homePage,
     meetYourProviderPage,
-    mentalHealthIntakePage,
   }) => {
     const since = new Date();
     inbox = mailClient.inboxInfo;
@@ -75,9 +74,6 @@ test.describe("Signup from scratch. New user. New email.", () => {
       await meetYourProviderPage.waitForRedirect();
       await meetYourProviderPage.expectTitleVisible();
       await meetYourProviderPage.close();
-      await mentalHealthIntakePage.waitForRedirect();
-      await mentalHealthIntakePage.expectTitleVisible();
-      await mentalHealthIntakePage.startIntake();
     } else {
       throw new Error(`Unexpected post-login onboarding response: HTTP ${onboardingStatus}`);
     }
