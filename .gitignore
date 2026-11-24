@@ -2,7 +2,6 @@
 node_modules
 .git
 skills-lock.json
-AGENTS.md
 .prettierrc
 reports
 artifacts
