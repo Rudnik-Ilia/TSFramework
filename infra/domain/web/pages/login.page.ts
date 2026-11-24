@@ -79,10 +79,6 @@ export class LoginPage extends BasePage {
     await this.signInButton.click();
   }
 
-  async pause(): Promise<void> {
-    await this.page.pause();
-  }
-
   @step
   async login(email: string, password: string): Promise<void> {
     await this.fillCredentials(email, password);

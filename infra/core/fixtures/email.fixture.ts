@@ -1,4 +1,4 @@
-import { MailClient } from "../../clients/email.client";
+import { MailClient } from "../clients/email.client";
 import { test as pagesTest } from "./pages.fixture";
 
 interface MailFixtures {

@@ -2,7 +2,6 @@ import type { Locator, Page } from "@playwright/test";
 
 import { step } from "../../../utils/step.util";
 import {
-  EMAIL_VERIFICATION_CODE_INPUT_PREFIX,
   EMAIL_VERIFICATION_CONTACT_SUPPORT_LINK,
   EMAIL_VERIFICATION_OTP_ENVELOPE_IMAGE,
   EMAIL_VERIFICATION_OTP_MESSAGE,
@@ -19,7 +18,13 @@ export class EmailVerificationCodePage extends BasePage {
   readonly envelopeImage: Locator;
   readonly title: Locator;
   readonly sentCodeMessage: Locator;
-  readonly verificationCodeInputs: readonly Locator[];
+  readonly codeInput1: Locator;
+  readonly codeInput2: Locator;
+  readonly codeInput3: Locator;
+  readonly codeInput4: Locator;
+  readonly codeInput5: Locator;
+  readonly codeInput6: Locator;
+  readonly otpError: Locator;
   readonly resendCodeButton: Locator;
   readonly updateEmailButton: Locator;
   readonly contactSupportLink: Locator;
@@ -29,9 +34,13 @@ export class EmailVerificationCodePage extends BasePage {
     this.envelopeImage = page.getByRole("img", { name: EMAIL_VERIFICATION_OTP_ENVELOPE_IMAGE });
     this.title = page.getByText(EMAIL_VERIFICATION_OTP_TITLE, { exact: true });
     this.sentCodeMessage = page.getByText(EMAIL_VERIFICATION_OTP_MESSAGE, { exact: false });
-    this.verificationCodeInputs = Array.from({ length: EmailVerificationCodePage.codeLength }, (_, index) =>
-      page.getByTestId(`${EMAIL_VERIFICATION_CODE_INPUT_PREFIX}${index}`),
-    );
+    this.codeInput1 = page.getByTestId("verificationCodeInput0");
+    this.codeInput2 = page.getByTestId("verificationCodeInput1");
+    this.codeInput3 = page.getByTestId("verificationCodeInput2");
+    this.codeInput4 = page.getByTestId("verificationCodeInput3");
+    this.codeInput5 = page.getByTestId("verificationCodeInput4");
+    this.codeInput6 = page.getByTestId("verificationCodeInput5");
+    this.otpError = page.getByText("Error validating OTP", { exact: true });
     this.resendCodeButton = page.getByTestId(EMAIL_VERIFICATION_RESEND_CODE_BUTTON);
     this.updateEmailButton = page.getByTestId(EMAIL_VERIFICATION_UPDATE_EMAIL_BUTTON);
     this.contactSupportLink = page.getByTestId(EMAIL_VERIFICATION_CONTACT_SUPPORT_LINK);
@@ -46,17 +55,28 @@ export class EmailVerificationCodePage extends BasePage {
     return this.sentCodeMessage.getByText(email, { exact: true });
   }
 
-  @step
-  async fillVerificationCode(code: string): Promise<void> {
-    const digits = [...code];
+  async fillCodeInput1(digit: string): Promise<void> {
+    await this.codeInput1.fill(digit);
+  }
 
-    if (digits.length !== EmailVerificationCodePage.codeLength || digits.some((digit) => digit < "0" || digit > "9")) {
-      throw new Error(`Verification code must contain exactly ${EmailVerificationCodePage.codeLength} digits`);
-    }
+  async fillCodeInput2(digit: string): Promise<void> {
+    await this.codeInput2.fill(digit);
+  }
 
-    for (const [index, digit] of digits.entries()) {
-      await this.verificationCodeInputs[index].fill(digit);
-    }
+  async fillCodeInput3(digit: string): Promise<void> {
+    await this.codeInput3.fill(digit);
+  }
+
+  async fillCodeInput4(digit: string): Promise<void> {
+    await this.codeInput4.fill(digit);
+  }
+
+  async fillCodeInput5(digit: string): Promise<void> {
+    await this.codeInput5.fill(digit);
+  }
+
+  async fillCodeInput6(digit: string): Promise<void> {
+    await this.codeInput6.fill(digit);
   }
 
   @step

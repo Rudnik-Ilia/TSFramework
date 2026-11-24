@@ -1,8 +1,8 @@
 import { test } from "../../infra/core/fixtures/email.fixture";
-import { Markers, TestTags } from "../../infra/core/markers/markers.collection";
+import { Markers, TestTags } from "../../infra/utils/markers.util";
 
 test.describe("Logginng with existing login + password.", () => {
-  test("Log in test.", Markers(TestTags.SANITY), async ({ mailClient, loginPage, twoFactorVerifyPage }) => {
+  test("Log in test.", Markers(), async ({ mailClient, loginPage, twoFactorVerifyPage }) => {
     const since = new Date();
     await loginPage.goto();
     await loginPage.login("second@sandbox.zazamail.link", "!Test12345!");

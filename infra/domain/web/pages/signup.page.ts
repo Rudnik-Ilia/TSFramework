@@ -79,10 +79,12 @@ export class SignupPage extends BasePage {
   }
 
   async fillPassword(password: string): Promise<void> {
+    Validate.enabled(this.passwordInput);
     await this.passwordInput.fill(password);
   }
 
   async fillNickname(nickname: string): Promise<void> {
+    Validate.enabled(this.nicknameInput);
     await this.nicknameInput.fill(nickname);
   }
 

@@ -8,4 +8,8 @@ export abstract class BasePage {
   }
 
   abstract goto(): Promise<void>;
+
+  async pause(): Promise<void> {
+    await this.page.pause();
+  }
 }
