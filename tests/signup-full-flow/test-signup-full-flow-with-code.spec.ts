@@ -9,11 +9,11 @@ import formData from "./test-data/form.data.json";
 
 const EMAIL_RANDOM_PLACEHOLDER = "{PLACEHOLDER-RANDOM}";
 
-test.describe("Signup from scratch. New user. New email.", () => {
+test.describe("New-user signup with email verification code and onboarding", () => {
   Serial();
   let inbox: InboxData | undefined;
 
-  test("Test sign up.", Markers(), async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage }) => {
+  test("creates an account and verifies the email with a one-time code", Markers(), async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage }) => {
     const since = new Date();
     const emailAddress = Templater.replace(formData.email, EMAIL_RANDOM_PLACEHOLDER, RandomUtil.createRandomNumber());
     await mailClient.createNewInbox(emailAddress);
@@ -34,9 +34,10 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await emailVerificationCodePage.fillCode(verificationCode);
 
     await welcomeTalkspacePage.verifySucces();
+    await welcomeTalkspacePage.pause();
   });
 
-  test("Test", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage, meetYourProviderPage, onboardingPage }) => {
+  test("signs in with 2FA and selects a gender identity during onboarding", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage, meetYourProviderPage, onboardingPage }) => {
     const since = new Date();
     inbox = mailClient.inboxInfo;
     await Attacher.attachInbox(inbox);
