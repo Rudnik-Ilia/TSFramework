@@ -53,10 +53,18 @@ jobs:
 
           docker compose up \
             --no-build \
-            --abort-on-container-exit \
-            --exit-code-from tests
+            --detach \
+            tests
 
-          test_exit_code=$?
+          startup_exit_code=$?
+          if [ "$startup_exit_code" -eq 0 ]; then
+            test_exit_code="$(
+              docker compose exec --no-TTY tests bash -c \
+                'until [ -f /tmp/playwright-exit-code ]; do sleep 1; done; cat /tmp/playwright-exit-code'
+            )"
+          else
+            test_exit_code=$startup_exit_code
+          fi
 
           docker compose logs --no-color > artifacts/docker-compose.log 2>&1 || true
 

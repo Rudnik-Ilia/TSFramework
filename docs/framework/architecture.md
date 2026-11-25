@@ -311,8 +311,9 @@ compose.yaml
 - `playwright.config.ts` reads the settings path from `PW_SETTINGS`, substitutes a random `{reportId}`, forces headless mode when `CI=true`, and prepares Playwright projects.
 - `playwright.settings.json` defines test directory, output, parallelism, workers, timeouts, reporters, base URL, test ID attribute, trace/screenshot policy, launch options, and projects.
 - `tsconfig.json` enables strict ES2022/NodeNext checking for framework, tests, configuration, and CLI entry point.
-- `Dockerfile` uses the Playwright 1.65 Noble image, installs locked dependencies, copies the project, sets CI mode, and runs Chromium tests through the QA CLI.
-- `compose.yaml` builds or accepts `E2E_IMAGE`, runs the test service with host IPC, and mounts `reports/` back to the host.
+- `Dockerfile` uses the Playwright 1.65 Noble image, installs locked dependencies, copies the project, sets CI mode, and starts `docker-entrypoint.sh`.
+- `docker-entrypoint.sh` runs all configured browser tests, records their exit code, and then keeps the reusable runner alive.
+- `compose.yaml` builds or accepts `E2E_IMAGE`, configures the browser, keeps and restarts the test service with host IPC, and mounts `reports/` back to the host. Additional test commands execute in that service with `docker compose exec`.
 - `.gitignore` excludes dependencies, secrets, reports, artifacts, temporary files, and local agent/browser tooling.
 - `.dockerignore` keeps Git metadata, local dependencies, reports, artifacts, environment files, and logs out of the build context.
 

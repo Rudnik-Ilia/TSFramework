@@ -8,15 +8,9 @@ services:
       dockerfile: Dockerfile
     init: true
     ipc: host
+    restart: unless-stopped
     environment:
       CI: "true"
+      E2E_BROWSER: ${E2E_BROWSER:-chromium}
     volumes:
       - ./reports:/app/reports
-    command:
-      - npm
-      - run
-      - qa
-      - --
-      - run
-      - --browser
-      - ${E2E_BROWSER:-chromium}

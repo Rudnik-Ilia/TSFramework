@@ -9,4 +9,4 @@ COPY . .
 
 ENV CI=true
 
-CMD ["npm", "run", "qa", "--", "run", "--browser", "chromium"]
+CMD ["bash", "./docker-entrypoint.sh"]

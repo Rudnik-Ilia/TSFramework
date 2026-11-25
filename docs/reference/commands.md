@@ -263,20 +263,18 @@ Framework-level variables currently used by committed runtime files:
 | `PW_SETTINGS` | Select an alternate Playwright settings JSON file |
 | `CI` | Force headless Playwright execution when equal to `true` |
 | `E2E_IMAGE` | Select the Docker image used by Compose |
-| `E2E_BROWSER` | Select the Playwright project/browser used by Compose |
+| `E2E_BROWSER` | Select the browser used for the automatic container test run; defaults to `chromium` |
 | `COMPOSE_PROJECT_NAME` | Isolate Compose resources, set by CI |
 
 New external-service credentials must use clearly named environment variables and must never be printed or committed.
 
 ## Docker execution
 
-Build and run the same container shape used by CI:
+Build and start the same long-running test container used by CI:
 
 ```bash
-docker compose up \
-  --build \
-  --abort-on-container-exit \
-  --exit-code-from tests
+docker compose up --detach --build
+docker compose ps
 ```
 
 The Compose service:
@@ -285,15 +283,35 @@ The Compose service:
 - Runs with `CI=true`
 - Uses host IPC for Chromium stability
 - Mounts host `./reports` to `/app/reports`
-- Runs the QA CLI with the project from `E2E_BROWSER` or `chromium`
+- Runs all tests automatically using `E2E_BROWSER` or Chromium
+- Writes the automatic run's exit code to `/tmp/playwright-exit-code`
+- Remains alive between test commands
+- Restarts automatically unless it was explicitly stopped
+
+Follow the automatic test run and read its exit code:
+
+```bash
+docker compose logs --follow tests
+docker compose exec tests cat /tmp/playwright-exit-code
+```
+
+Run all Chromium tests again inside the running container:
+
+```bash
+docker compose exec tests npm run qa -- run --browser chromium
+```
+
+Run a single spec inside the same container:
+
+```bash
+docker compose exec tests npm run qa -- run --file tests/signup-full-flow/test-signup-full-flow.spec.ts
+```
 
 Use a prebuilt image:
 
 ```bash
-E2E_IMAGE=ghcr.io/<owner>/<repository>:<tag> docker compose up \
-  --no-build \
-  --abort-on-container-exit \
-  --exit-code-from tests
+docker pull ghcr.io/<owner>/<repository>:<tag>
+E2E_IMAGE=ghcr.io/<owner>/<repository>:<tag> docker compose up --detach --no-build
 ```
 
 Clean up Compose resources:
@@ -363,7 +381,10 @@ Run local checks plus:
 
 ```bash
 docker compose config
-docker compose up --build --abort-on-container-exit --exit-code-from tests
+docker compose up --detach --build
+docker compose logs --follow tests
+docker compose exec tests cat /tmp/playwright-exit-code
+docker compose down --volumes --remove-orphans
 ```
 
 ## Troubleshooting
