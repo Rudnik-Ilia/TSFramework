@@ -83,6 +83,15 @@ export class EmailVerificationCodePage extends BasePage {
     await this.codeInput6.fill(digit);
   }
 
+  async fillCode(digit: string): Promise<void> {
+    await this.codeInput1.fill(digit.charAt(0));
+    await this.codeInput2.fill(digit.charAt(1));
+    await this.codeInput3.fill(digit.charAt(2));
+    await this.codeInput4.fill(digit.charAt(3));
+    await this.codeInput5.fill(digit.charAt(4));
+    await this.codeInput6.fill(digit.charAt(5));
+  }
+
   @step
   async resendCode(): Promise<void> {
     await this.resendCodeButton.click();

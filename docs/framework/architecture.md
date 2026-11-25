@@ -164,9 +164,11 @@ Stable selector values and accessible text used by pages.
 
 ```text
 infra/domain/web/locators/
+├── change-number.locators.ts
 ├── email-resend.locators.ts
 ├── email-verification-otp.locators.ts
 ├── login.sign.locators.ts
+├── mental-health-intake.locators.ts
 ├── verification-email.locators.ts
 └── welcome-talkspace.locators.ts
 ```
@@ -186,6 +188,7 @@ infra/domain/web/pages/
 ├── signup.page.ts
 ├── two-factor-verify.page.ts
 └── log-in/
+    ├── change-number.page.ts
     ├── email-verification-code.page.ts
     ├── home.page.ts
     ├── login.page.ts
@@ -203,6 +206,7 @@ Responsibilities of the current pages:
 - `signup.page.ts` owns `/signup/autoswitchpt`, account fields, password state, country/state selection, related links, and account submission.
 - `email-resend.page.ts` owns `/email-verification/sent`, its email-fragment URL builder, resend action, and page content.
 - `email-verification-code.page.ts` owns `/email-verification/otp`, six OTP inputs, resend/update controls, redirect waiting, and verification messaging.
+- `change-number.page.ts` owns `/2fa/reminder/change-number` and the action for postponing two-factor phone setup.
 - `two-factor-verify.page.ts` owns `/2fa/verify`, six 2FA inputs, redirect waiting, and continue.
 - `home.page.ts` owns `/home`, home navigation, and redirect waiting.
 - `meet-your-provider.page.ts` represents a dynamic room onboarding route and close action.

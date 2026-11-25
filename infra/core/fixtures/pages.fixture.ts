@@ -11,6 +11,7 @@ import { MeetYourProviderPage } from "../../domain/web/pages/log-in/meet-your-pr
 import { MentalHealthIntakePage } from "../../domain/web/pages/log-in/mental-health-intake.page";
 import { MentalHealthIntakeGenderPage } from "../../domain/web/pages/log-in/mental-health-intake-gender.page";
 import { OnboardingPage } from "../../domain/web/pages/log-in/onboarding.page";
+import { ChangeNumberPage } from "../../domain/web/pages/log-in/change-number.page";
 
 interface PageFixtures {
   emailVerificationCodePage: EmailVerificationCodePage;
@@ -24,6 +25,7 @@ interface PageFixtures {
   mentalHealthIntakePage: MentalHealthIntakePage;
   mentalHealthIntakeGenderPage: MentalHealthIntakeGenderPage;
   onboardingPage: OnboardingPage;
+  changeNumberPage: ChangeNumberPage;
 }
 
 export const test = base.extend<PageFixtures>({
@@ -44,6 +46,10 @@ export const test = base.extend<PageFixtures>({
 
   onboardingPage: async ({ page }, use) => {
     await use(new OnboardingPage(page));
+  },
+
+  changeNumberPage: async ({ page }, use) => {
+    await use(new ChangeNumberPage(page));
   },
 
   emailVerificationCodePage: async ({ page }, use) => {

@@ -2,6 +2,11 @@ import type { Locator, Page } from "@playwright/test";
 
 import { Validate } from "../../../../core/validations/validate.validation";
 import { step } from "../../../../utils/step.util";
+import {
+  MENTAL_HEALTH_INTAKE_GENDER_OPTION,
+  MENTAL_HEALTH_INTAKE_GENDER_OPTIONS,
+  type GenderIdentityOption,
+} from "../../locators/mental-health-intake.locators";
 import { BasePage } from "../base.page";
 
 export class MentalHealthIntakePage extends BasePage {
@@ -41,5 +46,20 @@ export class MentalHealthIntakePage extends BasePage {
   @step
   async expectGenderIdentityVisible(): Promise<void> {
     await Validate.visible(this.genderIdentityTitle);
+  }
+
+  @step
+  async selectGenderIdentity(option: GenderIdentityOption): Promise<void> {
+    await this.genderIdentityOption(option).click();
+  }
+
+  private genderIdentityOption(option: GenderIdentityOption): Locator {
+    const optionIndex = MENTAL_HEALTH_INTAKE_GENDER_OPTIONS.indexOf(option);
+
+    if (optionIndex === -1) {
+      throw new Error(`Unsupported gender identity option: ${option}`);
+    }
+
+    return this.page.getByTestId(`${MENTAL_HEALTH_INTAKE_GENDER_OPTION}${optionIndex}`);
   }
 }
