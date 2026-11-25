@@ -8,6 +8,7 @@ export type { InboxData };
 
 export class MailClient {
   // TODO: Read this test-only MailSlurp API key from an environment variable supplied as a Jenkins secret.
+  // No worries its a TEST token. I know its here.
   private static apiKey = "sk_UkakdtesUFdMSexI_0co54vtepiURCetbvMB5Qvw4YL3xj1ikXdTZLiogEAUnZadcDf5zhzaykOG2pifS";
   inboxId?: string;
   emailAddress?: string;
