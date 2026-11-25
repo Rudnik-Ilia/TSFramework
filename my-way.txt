@@ -1,0 +1,152 @@
+Created by Sol5.6 from my audio file.
+
+I deliberately focused on building a solid framework foundation, with a clear component hierarchy, well-defined architectural layers, and structured configuration management.
+Since AI agents are expected to implement and maintain tests in the future, my goal was to ensure that once an agent understands the project structure and reads `README.md` and `AGENTS.md`, it can consistently produce tests that meet my architectural and engineering expectations.
+This approach makes framework extension, test implementation, and execution faster and more cost-effective. By reusing existing infrastructure, agents require less context, fewer tokens, and fewer development iterations.
+I also intentionally avoided unnecessary inline documentation in classes and methods to minimize context pollution and prevent agents from being distracted by irrelevant information. Instead, I centralized essential documentation and architectural guidelines.
+
+## 1. What did you use AI for during this assignment?
+
+My main approach was agent-driven development. I used four dedicated AI agents, each with a different responsibility:
+
+- **Research agent** - explored possible technical solutions, searched GitHub repositories, investigated best practices, and compared different implementation approaches. I discussed the alternatives with the agent and made the final technical decisions myself.
+- **General-purpose agent** - answered small, independent technical questions. I used a custom prompt to prevent unrelated questions from being influenced by previous conversation context.
+- **Framework development agent** - implemented the test automation infrastructure based on the architecture and requirements I defined.
+- **Test implementation agent** - implemented test scenarios using the existing framework infrastructure.
+All the agents have my own system promts.
+
+I used Zed as my primary code editor because, in my experience, it provides excellent integration with coding agents. I also worked with Codex and the Sol LLM.
+
+Throughout development, I used several specialized skills and methodologies:
+
+- **GrillMe skill** - before starting implementation, I used this skill to clarify requirements, discuss architectural decisions, and prepare an initial development plan. I then reviewed the plan and designed the framework structure, layers, components, responsibilities, and architectural boundaries myself.
+- **Playwright Best Practices skills** - to improve Playwright implementation quality, reliability, and maintainability.
+- **TypeScript skills** - to improve code quality and enforce appropriate development practices.
+- **Playwright CLI skills** - to investigate application behavior and interact with the application. I also experimented with MCP, but found the skills-based approach more effective for this particular assignment.
+- **OpenSpec** - as the framework grew, I adopted a specification-driven development approach to keep the agent focused on specific requirements, control the scope of changes, and prevent architectural deviations.
+
+I also used AI for failure investigation and debugging. Whenever a test failed, I provided the agent with relevant diagnostic information, including:
+
+- Playwright trace files.
+- HAR files.
+- HTTP requests and responses.
+- Application behavior and navigation sequences.
+- Test execution results.
+
+This helped me investigate failures, understand application behavior, and identify potential root causes.
+
+Finally, I delegated routine tasks such as writing documentation, improving naming conventions, creating test descriptions, and implementing small utility scripts and classes.
+
+## 2. Give one concrete example where the AI's first answer was wrong, incomplete, or flaky. What was wrong, and how did you catch and fix it?
+
+I encountered several situations where AI-generated solutions were incorrect, unreliable, or architecturally inappropriate.
+
+### Authentication and post-login navigation
+
+One of the most significant examples involved authentication token handling, asynchronous operations, and navigation between the Home and Onboarding screens.
+
+The agent initially proposed an incorrect approach to extracting and restoring authentication tokens. Its implementation also introduced a race condition between asynchronous operations, resulting in flaky test behavior.
+
+Another problem was that the agent treated `/home` as a deterministic final destination, although it could be either a final screen or an intermediate route.
+
+Changing the expected destination from Home to Onboarding appeared to fix one execution but caused another execution to fail.
+
+I investigated multiple Playwright traces and compared the network activity.
+
+**Execution at 20:24:**
+
+- The test was waiting for `MentalHealthIntakePage.waitForRedirect()`.
+- The `POST /v3/2fa/verify` request returned HTTP 200, confirming successful two-factor authentication.
+- The user had an assigned room.
+- The onboarding API returned HTTP 404 45 times within 30.4 seconds.
+- The application reached `/home`, but the expected Intake screen never appeared.
+
+**Execution at 20:06:**
+
+- The test was expecting the Home screen.
+- The same onboarding API returned HTTP 200 with a mandatory `MEET_YOUR_PROVIDER` step.
+- The application temporarily reached `/home` before navigating to the provider screen.
+
+The traces demonstrated that different users had different onboarding states. The expected URL itself was not responsible for the navigation behavior.
+
+Based on this investigation, I identified the appropriate solution:
+
+- Separate authentication validation from onboarding validation.
+- Synchronize the authentication test with the actual 2FA API response.
+- Use deterministic test accounts with predefined onboarding states.
+- Validate the expected screen and application state rather than relying exclusively on URL assertions.
+- Investigate repeated onboarding API failures separately as a potential test data preparation issue.
+- Avoid creating an unnecessary Page Object for `/after-login`, since it was a shared intermediate route rather than a meaningful application screen.
+
+The investigation confirmed why navigation differed between these executions. However, this particular correction was not yet implemented or validated through another test execution.
+
+### Other issues I encountered
+
+- **Locator strategy:** The agent initially ignored dedicated test attributes specifically designed for reliable element identification and instead proposed less reliable locators.
+- **Email verification:** The agent proposed a technically incompatible email testing solution without properly understanding the email delivery mechanism or the service API. I had to redirect its research toward the actual API and verify its capabilities.
+- **Application navigation:** During application investigation, the agent identified irrelevant or incorrect URLs and attempted to navigate to pages that were not part of the required workflow.
+- **Framework infrastructure:** The agent initially failed to reuse the existing infrastructure correctly and did not consistently follow OOP principles. Adding specialized skills and explicit architectural constraints improved its implementation.
+- **Scope control:** The agent frequently attempted to modify unrelated files, introduced unnecessary changes, and placed components in inappropriate architectural layers.
+- **Token management:** The agent proposed incorrect mechanisms for extracting, storing, and restoring authentication tokens, requiring additional investigation and correction.
+
+My general approach to resolving these problems was to isolate each issue, collect diagnostic evidence, describe the expected behavior, and provide the agent with explicit technical guidance and constraints.
+Simply asking the agent to fix something was rarely sufficient. Providing concrete evidence, narrowing the investigation scope, and defining clear acceptance criteria consistently produced better results.
+
+## 3. Was there anything you deliberately didn't use AI for, or where you overrode its suggestion? Why?
+
+### Framework architecture and engineering decisions
+
+I deliberately kept ownership of the framework architecture and its core engineering decisions.
+
+I personally designed:
+
+- The directory structure.
+- Architectural layers and their boundaries.
+- Class responsibilities.
+- Separation of concerns.
+- Encapsulation and abstraction.
+- Business logic placement.
+- Core framework infrastructure.
+- Test layer responsibilities.
+- Infrastructure reuse and extensibility.
+
+The reason was that when I asked AI to design a framework from scratch, it tended to search for popular GitHub repositories and reproduce relatively shallow architectural patterns.
+
+These approaches often resulted in:
+
+- **Bloated test layers** containing implementation details and business logic that should have been encapsulated elsewhere.
+- **Poor encapsulation** and insufficient separation of responsibilities.
+- **Insufficient infrastructure reuse.**
+- **Inconsistent application of OOP principles.**
+- **Overengineered solutions** for relatively simple problems.
+- **Incorrect placement of components** within the architectural layers.
+- Architectural decisions that did not match my long-term maintainability requirements.
+
+I frequently overrode these suggestions and explicitly defined where particular logic belonged, which responsibilities each component should have, and how different layers should interact.
+
+### Email verification infrastructure — a deliberate technical compromise
+
+Another important engineering decision involved email verification.
+For this assignment, I used a third-party email service to receive emails and retrieve their contents through an API. However, I do not consider this the ideal solution for a fully controlled test automation environment.
+My preferred approach would be to deploy a dedicated SMTP server inside a Docker container, together with a programmatic interface for retrieving and processing incoming emails. I have already implemented a similar solution at a previous company.
+
+This approach would provide:
+
+- Full control over the email testing infrastructure.
+- Independence from third-party email providers.
+- Dynamic email address generation for individual tests.
+- Greater control over email delivery and retrieval.
+- More predictable and reproducible test execution.
+- No dependency on external API quotas, rate limits, or subscription restrictions.
+- Reduced exposure to external network failures and service outages.
+
+However, for this assignment, I did not have access to the application's backend, its email delivery configuration, or the necessary DNS and mail routing infrastructure. I therefore could not configure email delivery to an isolated, containerized SMTP server under my control.
+Using a third-party email service was a practical compromise under these constraints, rather than my preferred architectural solution.
+It introduces external dependencies, including service availability, network connectivity, API reliability, and potential rate limits. These are additional failure points outside the direct control of the test automation framework.
+In a production-grade test environment where I had control over the necessary infrastructure, I would prefer a self-hosted SMTP solution for automated email verification.
+
+### Final engineering approach
+
+My goal was not simply to produce working tests, but to build a maintainable, scalable, reusable, and extensible automation framework.
+I used AI as an implementation partner, research assistant, and debugging tool rather than as an autonomous engineering decision-maker.
+The framework architecture, engineering standards, technical trade-offs, and final responsibility for implementation quality remained mine.
