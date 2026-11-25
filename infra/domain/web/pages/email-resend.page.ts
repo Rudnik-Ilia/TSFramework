@@ -7,7 +7,7 @@ import {
   EMAIL_VERIFICATION_SENT_MESSAGE,
   EMAIL_VERIFICATION_SENT_TITLE,
 } from "../locators/email-resend.locators";
-import { BasePage } from "./base.page";
+import { BasePage } from "./abstract/base.page.abs";
 
 export class EmailResendPage extends BasePage {
   static readonly path = "/email-verification/sent";

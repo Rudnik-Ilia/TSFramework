@@ -2,7 +2,7 @@ import type { Locator, Page } from "@playwright/test";
 
 import { step } from "../../../../utils/step.util";
 import { CHANGE_NUMBER_SKIP_ACTION, CHANGE_NUMBER_TITLE } from "../../locators/change-number.locators";
-import { BasePage } from "../base.page";
+import { BasePage } from "../abstract/base.page.abs";
 
 export class ChangeNumberPage extends BasePage {
   static readonly path = "/2fa/reminder/change-number";

@@ -2,7 +2,7 @@ import type { Locator, Page } from "@playwright/test";
 
 import { Validate } from "../../../../core/validations/validate.validation";
 import { step } from "../../../../utils/step.util";
-import { BasePage } from "../base.page";
+import { BasePage } from "../abstract/base.page.abs";
 
 export class MeetYourProviderPage extends BasePage {
   private static readonly route = /^\/room\/[^/]+\/onboarding\/meet-your-provider\/?$/;

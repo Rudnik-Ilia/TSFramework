@@ -13,31 +13,41 @@ test.describe("New-user signup with email verification code and onboarding", () 
   Serial();
   let inbox: InboxData | undefined;
 
-  test("creates an account and verifies the email with a one-time code", Markers(), async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage }) => {
-    const since = new Date();
-    const emailAddress = Templater.replace(formData.email, EMAIL_RANDOM_PLACEHOLDER, RandomUtil.createRandomNumber());
-    await mailClient.createNewInbox(emailAddress);
-    inbox = mailClient.inboxInfo;
-    await Attacher.attachInbox(inbox);
+  test(
+    "creates an account and verifies the email with a one-time code",
+    Markers(),
+    async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage }) => {
+      const since = new Date();
+      const emailAddress = Templater.replace(formData.email, EMAIL_RANDOM_PLACEHOLDER, RandomUtil.createRandomNumber());
+      await mailClient.createNewInbox(emailAddress);
+      inbox = mailClient.inboxInfo;
+      await Attacher.attachInbox(inbox);
 
-    await signupPage.goto();
-    await Validate.visible(signupPage.heading);
-    await signupPage.fillAccountDetails(inbox.emailAddress, formData.password, formData.nickname);
-    await signupPage.selectCountry(formData.countryName, formData.countryCode);
-    await signupPage.createAccount();
-    await emailVerificationCodePage.waitForRedirect();
+      await signupPage.goto();
+      await Validate.visible(signupPage.heading);
+      await signupPage.fillAccountDetails(inbox.emailAddress, formData.password, formData.nickname);
+      await signupPage.selectCountry(formData.countryName, formData.countryCode);
+      await signupPage.createAccount();
+      await emailVerificationCodePage.waitForRedirect();
 
-    await Validate.visible(emailVerificationCodePage.title);
-    await Validate.containText(emailVerificationCodePage.sentCodeMessage, inbox.emailAddress);
+      await Validate.visible(emailVerificationCodePage.title);
+      await Validate.containText(emailVerificationCodePage.sentCodeMessage, inbox.emailAddress);
 
-    const verificationCode: string = await mailClient.GetEmailVerificationCode("Verify your email address", since);
-    await emailVerificationCodePage.fillCode(verificationCode);
+      const verificationCode: string = await mailClient.GetEmailVerificationCode("Verify your email address", since);
+      await emailVerificationCodePage.fillCode(verificationCode);
 
-    await welcomeTalkspacePage.verifySucces();
-    await welcomeTalkspacePage.pause();
-  });
+      await welcomeTalkspacePage.verifySucces();
+    },
+  );
 
-  test("signs in with 2FA and selects a gender identity during onboarding", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage, meetYourProviderPage, onboardingPage }) => {
+  test("signs in with 2FA and selects a gender identity during onboarding", async ({
+    loginPage,
+    twoFactorVerifyPage,
+    mailClient,
+    mentalHealthIntakePage,
+    meetYourProviderPage,
+    onboardingPage,
+  }) => {
     const since = new Date();
     inbox = mailClient.inboxInfo;
     await Attacher.attachInbox(inbox);

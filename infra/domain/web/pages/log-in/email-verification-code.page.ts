@@ -9,7 +9,7 @@ import {
   EMAIL_VERIFICATION_RESEND_CODE_BUTTON,
   EMAIL_VERIFICATION_UPDATE_EMAIL_BUTTON,
 } from "../../locators/email-verification-otp.locators";
-import { BasePage } from "../base.page";
+import { BasePage } from "../abstract/base.page.abs";
 
 export class EmailVerificationCodePage extends BasePage {
   static readonly path = "/email-verification/otp";

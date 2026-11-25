@@ -1,7 +1,7 @@
 import type { Page, Response } from "@playwright/test";
 
 import { step } from "../../../../utils/step.util";
-import { BasePage } from "../base.page";
+import { BasePage } from "../abstract/base.page.abs";
 
 export class OnboardingPage extends BasePage {
   private static readonly route = /^\/room\/(\d+)\/onboarding(?:\/.*)?$/;
@@ -27,10 +27,7 @@ export class OnboardingPage extends BasePage {
 
   @step
   async waitForRedirect(trigger: () => Promise<void>): Promise<string> {
-    const [response] = await Promise.all([
-      this.page.waitForResponse((candidate) => OnboardingPage.isOnboardingResponse(candidate)),
-      trigger(),
-    ]);
+    const [response] = await Promise.all([this.page.waitForResponse((candidate) => OnboardingPage.isOnboardingResponse(candidate)), trigger()]);
 
     if (!response.ok()) {
       throw new Error(`Onboarding request failed with status ${response.status()}.`);

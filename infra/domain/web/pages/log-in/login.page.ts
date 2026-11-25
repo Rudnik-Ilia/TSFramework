@@ -12,7 +12,7 @@ import {
   SIGN_UP_LINK_LOGIN,
   SSO_SIGN_IN_LINK_LOGIN,
 } from "../../locators/login.sign.locators";
-import { BasePage } from "../base.page";
+import { BasePage } from "../abstract/base.page.abs";
 
 interface LoginResponse {
   data: {

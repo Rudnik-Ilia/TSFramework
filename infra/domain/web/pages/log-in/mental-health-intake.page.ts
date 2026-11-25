@@ -7,7 +7,7 @@ import {
   MENTAL_HEALTH_INTAKE_GENDER_OPTIONS,
   type GenderIdentityOption,
 } from "../../locators/mental-health-intake.locators";
-import { BasePage } from "../base.page";
+import { BasePage } from "../abstract/base.page.abs";
 
 export class MentalHealthIntakePage extends BasePage {
   private static readonly route = /^\/room\/[^/]+\/onboarding\/mental-health\/source\/onboarding\/?$/;

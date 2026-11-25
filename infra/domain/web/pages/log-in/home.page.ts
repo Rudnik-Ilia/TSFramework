@@ -1,7 +1,7 @@
 import type { Locator, Page } from "@playwright/test";
 
 import { step } from "../../../../utils/step.util";
-import { BasePage } from "../base.page";
+import { BasePage } from "../abstract/base.page.abs";
 
 export class HomePage extends BasePage {
   static readonly path = "/home";

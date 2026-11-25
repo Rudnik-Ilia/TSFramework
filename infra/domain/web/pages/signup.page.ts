@@ -22,7 +22,7 @@ import {
   TELEMEDICINE_LINK_SIGNUP,
   TERMS_OF_USE_LINK_SIGNUP,
 } from "../locators/login.sign.locators";
-import { BasePage } from "./base.page";
+import { BasePage } from "./abstract/base.page.abs";
 import { Validate } from "../../../core/validations/validate.validation";
 
 export class SignupPage extends BasePage {
