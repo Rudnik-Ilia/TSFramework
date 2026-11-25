@@ -192,6 +192,7 @@ infra/domain/web/pages/
     ├── meet-your-provider.page.ts
     ├── mental-health-intake-gender.page.ts
     ├── mental-health-intake.page.ts
+    ├── onboarding.page.ts
     └── welcome-talkspace.page.ts
 ```
 
@@ -207,6 +208,7 @@ Responsibilities of the current pages:
 - `meet-your-provider.page.ts` represents a dynamic room onboarding route and close action.
 - `mental-health-intake.page.ts` represents a dynamic mental-health onboarding route and its start action.
 - `mental-health-intake-gender.page.ts` represents the gender step and selection behavior.
+- `onboarding.page.ts` coordinates a race-free wait for the onboarding API response and validates that the resulting dynamic room route uses a room ID from that response.
 - `welcome-talkspace.page.ts` follows a verification link and represents the successful email-verification state.
 
 A page owns one route or tightly related route family. It should expose user intent, not require tests to understand DOM structure. Dynamic routes that cannot be visited directly may implement redirect waiting instead of usable direct navigation, but new contracts should make that explicit rather than throwing a generic `NotImplemented` error.

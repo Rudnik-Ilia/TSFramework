@@ -37,14 +37,14 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await welcomeTalkspacePage.verifySucces();
   });
 
-  test("Test", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage, meetYourProviderPage }) => {
-    // const since = new Date();
-    // inbox = mailClient.inboxInfo;
-    // await Attacher.attachInbox(inbox);
+  test("Test", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage, meetYourProviderPage, onboardingPage }) => {
+    const since = new Date();
+    inbox = mailClient.inboxInfo;
+    await Attacher.attachInbox(inbox);
 
     await loginPage.goto();
-    // await loginPage.login(inbox.emailAddress, formData.password);
-    await loginPage.login("ilia11@zazamail.link", "!Test12345!");
+    await loginPage.login(inbox.emailAddress, formData.password);
+    // await loginPage.login("ilia11@zazamail.link", "!Test12345!");
     await twoFactorVerifyPage.waitForRedirect();
     const verificationCode: string = await mailClient.GetEmailOneTimeLoginPass("One time login password", since);
     await twoFactorVerifyPage.fillCodeInput1(verificationCode.charAt(0));
@@ -53,7 +53,7 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await twoFactorVerifyPage.fillCodeInput4(verificationCode.charAt(3));
     await twoFactorVerifyPage.fillCodeInput5(verificationCode.charAt(4));
     await twoFactorVerifyPage.fillCodeInput6(verificationCode.charAt(5));
-    await twoFactorVerifyPage.continue();
+    await onboardingPage.waitForRedirect(() => twoFactorVerifyPage.continue());
 
     await meetYourProviderPage.waitForRedirect();
     await meetYourProviderPage.close();
@@ -61,8 +61,6 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await mentalHealthIntakePage.waitForRedirect();
     await mentalHealthIntakePage.expectTitleVisible();
     await mentalHealthIntakePage.startIntake();
-
-    // await homePage.waitForRedirect();
-    // await Validate.visible(homePage.homeNavigation);
+    await mentalHealthIntakePage.pause();
   });
 });
