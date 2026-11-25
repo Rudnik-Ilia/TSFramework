@@ -7,8 +7,9 @@ import type { InboxData } from "./contracts/inbox-id-name.contract";
 export type { InboxData };
 
 export class MailClient {
+  // TODO: Read this test-only MailSlurp API key from an environment variable supplied as a Jenkins secret.
   private static apiKey = "sk_UkakdtesUFdMSexI_0co54vtepiURCetbvMB5Qvw4YL3xj1ikXdTZLiogEAUnZadcDf5zhzaykOG2pifS";
-  inboxId = "c62bc08b-78ea-4f38-98ee-e3b499250bb9";
+  inboxId?: string;
   emailAddress?: string;
   private static readonly verificationPath = "https://app.canary.talkspace.com/email-verification#verificationCode=";
 
@@ -29,8 +30,8 @@ export class MailClient {
   }
 
   get inboxInfo(): InboxData {
-    if (!this.emailAddress) {
-      throw new Error("Inbox email address is not set. Call createNewInbox() first.");
+    if (!this.inboxId || !this.emailAddress) {
+      throw new Error("Inbox ID and email address are not set. Call createNewInbox() first.");
     }
 
     return {
@@ -40,6 +41,10 @@ export class MailClient {
   }
 
   private async getLastEmail(emailSubject: string, since?: Date): Promise<EmailPreview> {
+    if (!this.inboxId) {
+      throw new Error("Inbox ID is not set. Call createNewInbox() first.");
+    }
+
     const [email] = await this.client.waitController.waitForMatchingEmails({
       inboxId: this.inboxId,
       count: 1,
