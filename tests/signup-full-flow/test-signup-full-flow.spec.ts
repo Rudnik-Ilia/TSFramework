@@ -13,26 +13,41 @@ test.describe("1", () => {
   Serial();
   let inbox: InboxData | undefined;
 
-  test("creates", Markers(), async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage }) => {
-    const since = new Date();
-    const emailAddress = Templater.replace(formData.email, EMAIL_RANDOM_PLACEHOLDER, RandomUtil.createRandomNumber());
-    await mailClient.createNewInbox(emailAddress);
-    inbox = mailClient.inboxInfo;
-    await Attacher.attachInbox(inbox);
+  test(
+    "creates",
+    Markers(),
+    async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage, meetYourProviderPage, mentalHealthIntakePage }) => {
+      const since = new Date();
+      const emailAddress = Templater.replace(formData.email, EMAIL_RANDOM_PLACEHOLDER, RandomUtil.createRandomNumber());
+      await mailClient.createNewInbox(emailAddress);
+      inbox = mailClient.inboxInfo;
+      await Attacher.attachInbox(inbox);
 
-    await signupPage.goto();
-    await Validate.visible(signupPage.heading);
-    await signupPage.fillAccountDetails(inbox.emailAddress, formData.password, formData.nickname);
-    await signupPage.selectCountry(formData.countryName, formData.countryCode);
-    await signupPage.createAccount();
-    await emailVerificationCodePage.waitForRedirect();
+      await signupPage.goto();
+      await Validate.visible(signupPage.heading);
+      await signupPage.fillAccountDetails(inbox.emailAddress, formData.password, formData.nickname);
+      await signupPage.selectCountry(formData.countryName, formData.countryCode);
+      await signupPage.createAccount();
+      await emailVerificationCodePage.waitForRedirect();
 
-    await Validate.visible(emailVerificationCodePage.title);
-    await Validate.containText(emailVerificationCodePage.sentCodeMessage, inbox.emailAddress);
+      await Validate.visible(emailVerificationCodePage.title);
+      await Validate.containText(emailVerificationCodePage.sentCodeMessage, inbox.emailAddress);
 
-    const verificationCode: string = await mailClient.GetEmailVerificationCode("Verify your email address", since);
-    await emailVerificationCodePage.fillCode(verificationCode);
+      const verificationCode: string = await mailClient.GetEmailVerificationCode("Verify your email address", since);
+      await emailVerificationCodePage.fillCode(verificationCode);
 
-    await welcomeTalkspacePage.verifySucces();
-  });
+      await welcomeTalkspacePage.verifySucces();
+
+      await meetYourProviderPage.waitForRedirect();
+      await meetYourProviderPage.close();
+
+      await mentalHealthIntakePage.waitForRedirect();
+      await mentalHealthIntakePage.expectTitleVisible();
+      await mentalHealthIntakePage.startIntake();
+      await mentalHealthIntakePage.expectGenderIdentityVisible();
+
+      await mentalHealthIntakePage.selectGenderIdentity("Male");
+      await mentalHealthIntakePage.selectPreviousMentalHealthTreatment("Therapist");
+    },
+  );
 });

@@ -5,7 +5,10 @@ import { step } from "../../../../utils/step.util";
 import {
   MENTAL_HEALTH_INTAKE_GENDER_OPTION,
   MENTAL_HEALTH_INTAKE_GENDER_OPTIONS,
+  MENTAL_HEALTH_INTAKE_PREVIOUS_TREATMENT_OPTION,
+  MENTAL_HEALTH_INTAKE_PREVIOUS_TREATMENT_OPTIONS,
   type GenderIdentityOption,
+  type PreviousMentalHealthTreatmentOption,
 } from "../../locators/mental-health-intake.locators";
 import { BasePage } from "../abstract/base.page.abs";
 
@@ -53,6 +56,11 @@ export class MentalHealthIntakePage extends BasePage {
     await this.genderIdentityOption(option).click();
   }
 
+  @step
+  async selectPreviousMentalHealthTreatment(option: PreviousMentalHealthTreatmentOption): Promise<void> {
+    await this.previousMentalHealthTreatmentOption(option).click();
+  }
+
   private genderIdentityOption(option: GenderIdentityOption): Locator {
     const optionIndex = MENTAL_HEALTH_INTAKE_GENDER_OPTIONS.indexOf(option);
 
@@ -61,5 +69,15 @@ export class MentalHealthIntakePage extends BasePage {
     }
 
     return this.page.getByTestId(`${MENTAL_HEALTH_INTAKE_GENDER_OPTION}${optionIndex}`);
+  }
+
+  private previousMentalHealthTreatmentOption(option: PreviousMentalHealthTreatmentOption): Locator {
+    const optionIndex = MENTAL_HEALTH_INTAKE_PREVIOUS_TREATMENT_OPTIONS.indexOf(option);
+
+    if (optionIndex === -1) {
+      throw new Error(`Unsupported previous mental health treatment option: ${option}`);
+    }
+
+    return this.page.getByTestId(`${MENTAL_HEALTH_INTAKE_PREVIOUS_TREATMENT_OPTION}${optionIndex}`);
   }
 }
