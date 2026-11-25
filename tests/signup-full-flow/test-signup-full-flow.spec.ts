@@ -1,8 +1,6 @@
 import type { InboxData } from "../../infra/core/clients/contracts/inbox-id-name.contract";
 import { test } from "../../infra/core/fixtures/email.fixture";
 import { Validate } from "../../infra/core/validations/validate.validation";
-import { MeetYourProviderPage } from "../../infra/domain/web/pages/log-in/meet-your-provider.page";
-import { WelcomeTalkspacePage } from "../../infra/domain/web/pages/log-in/welcome-talkspace.page";
 import { Attacher } from "../../infra/utils/attachment.util";
 import { Markers, Serial, TestTags } from "../../infra/utils/markers.util";
 import formData from "./test-data/form.data.json";
@@ -39,13 +37,14 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await welcomeTalkspacePage.verifySucces();
   });
 
-  test("", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage }) => {
-    const since = new Date();
-    inbox = mailClient.inboxInfo;
-    await Attacher.attachInbox(inbox);
+  test("Test", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage, meetYourProviderPage }) => {
+    // const since = new Date();
+    // inbox = mailClient.inboxInfo;
+    // await Attacher.attachInbox(inbox);
 
     await loginPage.goto();
-    await loginPage.login(inbox.emailAddress, formData.password);
+    // await loginPage.login(inbox.emailAddress, formData.password);
+    await loginPage.login("ilia11@zazamail.link", "!Test12345!");
     await twoFactorVerifyPage.waitForRedirect();
     const verificationCode: string = await mailClient.GetEmailOneTimeLoginPass("One time login password", since);
     await twoFactorVerifyPage.fillCodeInput1(verificationCode.charAt(0));
@@ -55,6 +54,9 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await twoFactorVerifyPage.fillCodeInput5(verificationCode.charAt(4));
     await twoFactorVerifyPage.fillCodeInput6(verificationCode.charAt(5));
     await twoFactorVerifyPage.continue();
+
+    await meetYourProviderPage.waitForRedirect();
+    await meetYourProviderPage.close();
 
     await mentalHealthIntakePage.waitForRedirect();
     await mentalHealthIntakePage.expectTitleVisible();

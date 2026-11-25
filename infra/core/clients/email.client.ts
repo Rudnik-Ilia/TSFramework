@@ -7,7 +7,7 @@ import type { InboxData } from "./contracts/inbox-id-name.contract";
 export type { InboxData };
 
 export class MailClient {
-  private static apiKey = "sk_7ZSCitbRKnjPg0UQ_JX73kfqCWlZSgeVwlyHRmkeF7z87WH8cxgbSZMzEhqi5RsIweL6k5O1w4aosg3pz";
+  private static apiKey = "sk_UkakdtesUFdMSexI_0co54vtepiURCetbvMB5Qvw4YL3xj1ikXdTZLiogEAUnZadcDf5zhzaykOG2pifS";
   inboxId = "c62bc08b-78ea-4f38-98ee-e3b499250bb9";
   emailAddress?: string;
   private static readonly verificationPath = "https://app.canary.talkspace.com/email-verification#verificationCode=";
