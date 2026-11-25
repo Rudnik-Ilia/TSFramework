@@ -1,7 +1,8 @@
-import { Request } from "../../infra/core/clients/api.client";
 import type { InboxData } from "../../infra/core/clients/contracts/inbox-id-name.contract";
 import { test } from "../../infra/core/fixtures/email.fixture";
 import { Validate } from "../../infra/core/validations/validate.validation";
+import { MeetYourProviderPage } from "../../infra/domain/web/pages/log-in/meet-your-provider.page";
+import { WelcomeTalkspacePage } from "../../infra/domain/web/pages/log-in/welcome-talkspace.page";
 import { Attacher } from "../../infra/utils/attachment.util";
 import { Markers, Serial, TestTags } from "../../infra/utils/markers.util";
 import formData from "./test-data/form.data.json";
@@ -10,7 +11,7 @@ test.describe("Signup from scratch. New user. New email.", () => {
   Serial();
   let inbox: InboxData | undefined;
 
-  test("Test sign up.", Markers(), async ({ emailVerificationCodePage, signupPage, mailClient, welcomeTalkspacePage }) => {
+  test("Test sign up.", Markers(), async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage }) => {
     const since = new Date();
     await mailClient.createNewInbox(formData.email);
     inbox = mailClient.inboxInfo;
@@ -23,6 +24,7 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await signupPage.createAccount();
     await emailVerificationCodePage.waitForRedirect();
 
+    await Validate.visible(emailVerificationCodePage.title);
     await Validate.containText(emailVerificationCodePage.sentCodeMessage, inbox.emailAddress);
 
     const verificationCode: string = await mailClient.GetEmailVerificationCode("Verify your email address", since);
@@ -37,13 +39,7 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await welcomeTalkspacePage.verifySucces();
   });
 
-  test("Logs in with 2FA and follows the onboarding route", async ({
-    loginPage,
-    twoFactorVerifyPage,
-    mailClient,
-    homePage,
-    meetYourProviderPage,
-  }) => {
+  test("", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage }) => {
     const since = new Date();
     inbox = mailClient.inboxInfo;
     await Attacher.attachInbox(inbox);
@@ -58,24 +54,13 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await twoFactorVerifyPage.fillCodeInput4(verificationCode.charAt(3));
     await twoFactorVerifyPage.fillCodeInput5(verificationCode.charAt(4));
     await twoFactorVerifyPage.fillCodeInput6(verificationCode.charAt(5));
+    await twoFactorVerifyPage.continue();
 
-    const api = new Request(loginPage.page.request);
+    await mentalHealthIntakePage.waitForRedirect();
+    await mentalHealthIntakePage.expectTitleVisible();
+    await mentalHealthIntakePage.startIntake();
 
-    const onboardingResponse = await api.waitForOnboardingResponse(loginPage.page, () => twoFactorVerifyPage.continue());
-
-    const onboardingStatus = onboardingResponse.status();
-    await Attacher.attachJson("Post-login onboarding response", { status: onboardingStatus });
-
-    if (onboardingStatus === 404) {
-      await homePage.waitForRedirect();
-      await Validate.visible(homePage.homeNavigation);
-      await homePage.pause();
-    } else if (onboardingStatus === 200) {
-      await meetYourProviderPage.waitForRedirect();
-      await meetYourProviderPage.expectTitleVisible();
-      await meetYourProviderPage.close();
-    } else {
-      throw new Error(`Unexpected post-login onboarding response: HTTP ${onboardingStatus}`);
-    }
+    // await homePage.waitForRedirect();
+    // await Validate.visible(homePage.homeNavigation);
   });
 });
