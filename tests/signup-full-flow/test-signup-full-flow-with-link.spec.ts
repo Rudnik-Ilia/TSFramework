@@ -3,7 +3,11 @@ import { test } from "../../infra/core/fixtures/email.fixture";
 import { Validate } from "../../infra/core/validations/validate.validation";
 import { Attacher } from "../../infra/utils/attachment.util";
 import { Markers, Serial, TestTags } from "../../infra/utils/markers.util";
+import { RandomUtil } from "../../infra/utils/random.util";
+import { Templater } from "../../infra/utils/template.util";
 import formData from "./test-data/form.data.json";
+
+const EMAIL_RANDOM_PLACEHOLDER = "{PLACEHOLDER-RANDOM}";
 
 test.describe("Signup from scratch. New user. New email.", () => {
   Serial();
@@ -11,7 +15,8 @@ test.describe("Signup from scratch. New user. New email.", () => {
 
   test("Test sign up.", Markers(), async ({ signupPage, mailClient, welcomeTalkspacePage }) => {
     const since = new Date();
-    await mailClient.createNewInbox(formData.email);
+    const emailAddress = Templater.replace(formData.email, EMAIL_RANDOM_PLACEHOLDER, RandomUtil.createRandomNumber());
+    await mailClient.createNewInbox(emailAddress);
     inbox = mailClient.inboxInfo;
     await Attacher.attachInbox(inbox);
 
