@@ -45,4 +45,8 @@ export class Validate {
   static async haveTitle(page: Page, expectedTitle: string | RegExp): Promise<void> {
     await expect(page).toHaveTitle(expectedTitle);
   }
+
+  static async notEqual(actualValue: unknown, unexpectedValue: unknown): Promise<void> {
+    expect(actualValue).not.toBe(unexpectedValue);
+  }
 }
