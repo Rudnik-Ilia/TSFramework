@@ -322,7 +322,7 @@ docker compose down --volumes --remove-orphans
 
 ## CI workflow
 
-`.github/workflows/nightly-e2e.yml` supports manual dispatch and a scheduled run on November 14 at 20:00 `Asia/Jerusalem`.
+`.github/workflows/nightly-e2e.yml` supports manual dispatch and runs every day at 01:00 `Asia/Jerusalem`.
 
 The job:
 

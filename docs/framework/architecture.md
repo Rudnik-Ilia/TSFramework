@@ -59,7 +59,7 @@ GitHub-hosted automation.
     └── nightly-e2e.yml
 ```
 
-`nightly-e2e.yml` can be manually dispatched and is scheduled for November 14 at 20:00 in `Asia/Jerusalem`. It checks out the repository, builds an immutable Playwright image, pushes it to GHCR, executes Docker Compose, captures reports and container diagnostics, uploads artifacts for 30 days, cleans up containers, and returns the Playwright exit code.
+`nightly-e2e.yml` can be manually dispatched and runs every day at 01:00 in `Asia/Jerusalem`. It checks out the repository, builds an immutable Playwright image, pushes it to GHCR, executes Docker Compose, captures reports and container diagnostics, uploads artifacts for 30 days, cleans up containers, and returns the Playwright exit code.
 
 Do not place test logic in workflow YAML. CI should invoke the same repository commands used locally.
 

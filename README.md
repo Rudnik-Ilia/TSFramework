@@ -319,7 +319,7 @@ Do not commit local settings or environment files containing credentials.
 
 ## GitHub Actions
 
-The workflow is scheduled for November 14 at `20:00 Asia/Jerusalem` and can also be started manually from the GitHub Actions page. It:
+The workflow runs every day at `01:00 Asia/Jerusalem` and can also be started manually from the GitHub Actions page. It:
 
 1. Builds the Playwright image.
 2. Pushes it to private GHCR as `e2e-<commit-sha>`.
