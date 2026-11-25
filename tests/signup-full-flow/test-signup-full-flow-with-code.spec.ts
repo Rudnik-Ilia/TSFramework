@@ -38,7 +38,6 @@ test.describe("Signup from scratch. New user. New email.", () => {
 
     await loginPage.goto();
     await loginPage.login(inbox.emailAddress, formData.password);
-    // await loginPage.login("ilia11@zazamail.link", "!Test12345!");
     await twoFactorVerifyPage.waitForRedirect();
     const verificationCode: string = await mailClient.GetEmailOneTimeLoginPass("One time login password", since);
     await twoFactorVerifyPage.fillCode(verificationCode);
@@ -54,16 +53,4 @@ test.describe("Signup from scratch. New user. New email.", () => {
 
     await mentalHealthIntakePage.selectGenderIdentity("Male");
   });
-  //
-  //   test("Test", async ({ loginPage, twoFactorVerifyPage, mailClient, mentalHealthIntakePage, meetYourProviderPage, onboardingPage }) => {
-  //     const since = new Date();
-  //     inbox = mailClient.inboxInfo;
-  //     await Attacher.attachInbox(inbox);
-  //
-  //     await loginPage.goto();
-  //     await loginPage.login(inbox.emailAddress, formData.password);
-  //     // await loginPage.login("ilia11@zazamail.link", "!Test12345!");
-  //     await twoFactorVerifyPage.waitForRedirect();
-  //     const linkVerification = await mailClient.GetEmailLink();
-  //   });
 });

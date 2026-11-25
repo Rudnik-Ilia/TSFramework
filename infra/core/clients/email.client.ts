@@ -69,8 +69,8 @@ export class MailClient {
     return verificationCode;
   }
 
-  async GetEmailLink(): Promise<string> {
-    const email = await this.client.emailController.getLatestEmailInInbox1({ inboxId: this.inboxId });
+  async GetEmailLink(email_subject: string, after_time: Date): Promise<string> {
+    const email = await this.getLastEmail(email_subject, after_time);
     const { links } = await this.client.emailController.getEmailLinks({ emailId: email.id });
     const verificationUrl = links.find((link) => link.includes(MailClient.verificationPath));
 
