@@ -2,6 +2,7 @@
   "email": "tets-box-{PLACEHOLDER-RANDOM}@zazamail.link",
   "password": "!Test12345!",
   "nickname": "ilia",
+  "emergencyContactName": "Test Contact",
   "countryName": "Canada",
   "countryCode": "CA"
 }

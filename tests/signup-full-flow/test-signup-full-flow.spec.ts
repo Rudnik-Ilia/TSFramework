@@ -15,8 +15,18 @@ test.describe("1", () => {
 
   test(
     "creates",
-    Markers(),
-    async ({ emailVerificationCodePage, signupPage, mailClient, homePage, welcomeTalkspacePage, meetYourProviderPage, mentalHealthIntakePage }) => {
+    Markers(TestTags.SMOKE),
+    async ({
+      emailVerificationCodePage,
+      signupPage,
+      mailClient,
+      homePage,
+      welcomeTalkspacePage,
+      meetYourProviderPage,
+      mentalHealthIntakePage,
+      medicalHealthIntakePage,
+      emergencyContactPage,
+    }) => {
       const since = new Date();
       const emailAddress = Templater.replace(formData.email, EMAIL_RANDOM_PLACEHOLDER, RandomUtil.createRandomNumber());
       await mailClient.createNewInbox(emailAddress);
@@ -48,6 +58,14 @@ test.describe("1", () => {
 
       await mentalHealthIntakePage.selectGenderIdentity("Male");
       await mentalHealthIntakePage.selectPreviousMentalHealthTreatment("Therapist");
+
+      await medicalHealthIntakePage.waitForRedirect();
+      await medicalHealthIntakePage.skipPrimaryCareDoctor();
+
+      await emergencyContactPage.waitForRedirect();
+      await emergencyContactPage.submitFullName(formData.emergencyContactName);
+      // TODO: Add validation for every onboarding screen before interacting with it.
+      // Up to Home.
     },
   );
 });

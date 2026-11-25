@@ -1,0 +1,1 @@
+export const MEDICAL_HEALTH_INTAKE_PRIMARY_CARE_DOCTOR_SKIP_BUTTON = "medicalIntakePrimaryCarePractitionerSecondaryButton";

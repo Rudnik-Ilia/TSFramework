@@ -190,9 +190,11 @@ infra/domain/web/pages/
 └── log-in/
     ├── change-number.page.ts
     ├── email-verification-code.page.ts
+    ├── emergency-contact.page.ts
     ├── home.page.ts
     ├── login.page.ts
     ├── meet-your-provider.page.ts
+    ├── medical-health-intake.page.ts
     ├── mental-health-intake-gender.page.ts
     ├── mental-health-intake.page.ts
     ├── onboarding.page.ts
@@ -206,10 +208,12 @@ Responsibilities of the current pages:
 - `signup.page.ts` owns `/signup/autoswitchpt`, account fields, password state, country/state selection, related links, and account submission.
 - `email-resend.page.ts` owns `/email-verification/sent`, its email-fragment URL builder, resend action, and page content.
 - `email-verification-code.page.ts` owns `/email-verification/otp`, six OTP inputs, resend/update controls, redirect waiting, and verification messaging.
+- `emergency-contact.page.ts` represents the emergency-contact onboarding route and submits the contact's full name.
 - `change-number.page.ts` owns `/2fa/reminder/change-number` and the action for postponing two-factor phone setup.
 - `two-factor-verify.page.ts` owns `/2fa/verify`, six 2FA inputs, redirect waiting, and continue.
 - `home.page.ts` owns `/home`, home navigation, and redirect waiting.
 - `meet-your-provider.page.ts` represents a dynamic room onboarding route and close action.
+- `medical-health-intake.page.ts` represents the medical-health onboarding route and can skip the primary-care-doctor step.
 - `mental-health-intake.page.ts` represents a dynamic mental-health onboarding route and its start action.
 - `mental-health-intake-gender.page.ts` represents the gender step and selection behavior.
 - `onboarding.page.ts` coordinates a race-free wait for the onboarding API response and validates that the resulting dynamic room route uses a room ID from that response.

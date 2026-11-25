@@ -1,0 +1,1 @@
+export const EMERGENCY_CONTACT_FULL_NAME_PLACEHOLDER = "Full name";

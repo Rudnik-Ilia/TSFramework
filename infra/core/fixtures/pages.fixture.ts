@@ -2,12 +2,14 @@ import { test as base } from "@playwright/test";
 
 import { EmailVerificationCodePage } from "../../domain/web/pages/log-in/email-verification-code.page";
 import { EmailResendPage } from "../../domain/web/pages/email-resend.page";
+import { EmergencyContactPage } from "../../domain/web/pages/log-in/emergency-contact.page";
 import { LoginPage } from "../../domain/web/pages/log-in/login.page";
 import { SignupPage } from "../../domain/web/pages/signup.page";
 import { WelcomeTalkspacePage } from "../../domain/web/pages/log-in/welcome-talkspace.page";
 import { TwoFactorVerifyPage } from "../../domain/web/pages/two-factor-verify.page";
 import { HomePage } from "../../domain/web/pages/log-in/home.page";
 import { MeetYourProviderPage } from "../../domain/web/pages/log-in/meet-your-provider.page";
+import { MedicalHealthIntakePage } from "../../domain/web/pages/log-in/medical-health-intake.page";
 import { MentalHealthIntakePage } from "../../domain/web/pages/log-in/mental-health-intake.page";
 import { MentalHealthIntakeGenderPage } from "../../domain/web/pages/log-in/mental-health-intake-gender.page";
 import { OnboardingPage } from "../../domain/web/pages/log-in/onboarding.page";
@@ -16,12 +18,14 @@ import { ChangeNumberPage } from "../../domain/web/pages/log-in/change-number.pa
 interface PageFixtures {
   emailVerificationCodePage: EmailVerificationCodePage;
   emailResendPage: EmailResendPage;
+  emergencyContactPage: EmergencyContactPage;
   loginPage: LoginPage;
   signupPage: SignupPage;
   welcomeTalkspacePage: WelcomeTalkspacePage;
   twoFactorVerifyPage: TwoFactorVerifyPage;
   homePage: HomePage;
   meetYourProviderPage: MeetYourProviderPage;
+  medicalHealthIntakePage: MedicalHealthIntakePage;
   mentalHealthIntakePage: MentalHealthIntakePage;
   mentalHealthIntakeGenderPage: MentalHealthIntakeGenderPage;
   onboardingPage: OnboardingPage;
@@ -29,6 +33,10 @@ interface PageFixtures {
 }
 
 export const test = base.extend<PageFixtures>({
+  emergencyContactPage: async ({ page }, use) => {
+    await use(new EmergencyContactPage(page));
+  },
+
   welcomeTalkspacePage: async ({ page }, use) => {
     await use(new WelcomeTalkspacePage(page));
   },
@@ -38,6 +46,10 @@ export const test = base.extend<PageFixtures>({
 
   meetYourProviderPage: async ({ page }, use) => {
     await use(new MeetYourProviderPage(page));
+  },
+
+  medicalHealthIntakePage: async ({ page }, use) => {
+    await use(new MedicalHealthIntakePage(page));
   },
 
   mentalHealthIntakePage: async ({ page }, use) => {
