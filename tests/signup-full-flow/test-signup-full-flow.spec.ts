@@ -9,18 +9,17 @@ import formData from "./test-data/form.data.json";
 
 const EMAIL_RANDOM_PLACEHOLDER = "{PLACEHOLDER-RANDOM}";
 
-test.describe("1", () => {
+test.describe("New user signup with email verification and onboarding", () => {
   Serial();
   let inbox: InboxData | undefined;
 
   test(
-    "creates",
-    Markers(TestTags.SMOKE),
+    "creates and verifies an account, then submits onboarding intake details",
+    Markers(),
     async ({
       emailVerificationCodePage,
       signupPage,
       mailClient,
-      homePage,
       welcomeTalkspacePage,
       meetYourProviderPage,
       mentalHealthIntakePage,
