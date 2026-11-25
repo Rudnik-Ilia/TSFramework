@@ -61,6 +61,8 @@ test.describe("Signup from scratch. New user. New email.", () => {
     await mentalHealthIntakePage.waitForRedirect();
     await mentalHealthIntakePage.expectTitleVisible();
     await mentalHealthIntakePage.startIntake();
+    await mentalHealthIntakePage.expectGenderIdentityVisible();
+    await Validate.visible(mentalHealthIntakePage.genderIdentityTitle);
     await mentalHealthIntakePage.pause();
   });
 });

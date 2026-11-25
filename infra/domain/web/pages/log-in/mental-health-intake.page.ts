@@ -9,11 +9,13 @@ export class MentalHealthIntakePage extends BasePage {
 
   readonly title: Locator;
   readonly startIntakeButton: Locator;
+  readonly genderIdentityTitle: Locator;
 
   constructor(page: Page) {
     super(page);
     this.title = page.getByText(/^Let['’]s prepare for your first session$/);
     this.startIntakeButton = page.getByTestId("mentalIntakeWelcomeScreenPrimaryButton");
+    this.genderIdentityTitle = page.getByText("What is your gender identity?", { exact: true });
   }
 
   @step
@@ -34,5 +36,10 @@ export class MentalHealthIntakePage extends BasePage {
   @step
   async startIntake(): Promise<void> {
     await this.startIntakeButton.click();
+  }
+
+  @step
+  async expectGenderIdentityVisible(): Promise<void> {
+    await Validate.visible(this.genderIdentityTitle);
   }
 }
